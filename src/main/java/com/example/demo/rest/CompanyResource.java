@@ -5,6 +5,7 @@ import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.service.*;
 import com.example.demo.service.dto.*;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.description.field.FieldDescription;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class CompanyResource implements CompanyAPI {
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
         if (lastName == null || lastName.isBlank() || firstName == null || lastName.isBlank()) {
-            throw CompanyManagementException.badRequest ("FieldMissing", "Required field is missing");
+            throw CompanyManagementException.badRequest("FieldMissing", "Required field is missing");
         }
         return ResponseEntity.ok(employeeService.getEmployeeByLastNameAndFirstName(lastName, firstName));
     }
@@ -37,10 +38,10 @@ public class CompanyResource implements CompanyAPI {
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByLastNameOrFirstName(String lastName, String firstName) {
         if (lastName == null || lastName.isBlank()) {
-            throw CompanyManagementException.badRequest ("LastNameMissing", "Last name is missing");
+            throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing");
         }
         if (firstName == null || firstName.isBlank()) {
-            throw CompanyManagementException.badRequest ("FirstNameMissing", "First name is missing");
+            throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing");
         }
         return ResponseEntity.ok(employeeService.getEmployeeByLastNameOrFirstName(lastName, firstName));
     }
@@ -48,25 +49,50 @@ public class CompanyResource implements CompanyAPI {
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByFirstName(String firstName) {
         if (firstName == null || firstName.isBlank()) {
-            throw CompanyManagementException.badRequest ("FirstNameMissing", "First name is missing");
+            throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing");
         }
         return ResponseEntity.ok(employeeService.getEmployeeByFirstName(firstName));
     }
 
     @Override
-    public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryLessThan(Integer salary) {
-        if (salary == null || salary < 0) {
-            throw CompanyManagementException.badRequest ("InvalidSalaryInput", "Invalid input! Target salary must be a positive number.");
+    public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryLessThan(String salary) {
+        boolean valid = true;
+        Integer salaryInt = 0;
+        if (salary == null || salary.trim().isBlank() || salary.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                salaryInt = Integer.parseInt(salary);
+            } catch (Exception e) {
+                valid = false;
+            }
         }
-        return ResponseEntity.ok(employeeService.getEmployeeBySalaryLessThan(salary));
+        if (valid) {
+            return ResponseEntity.ok(employeeService.getEmployeeBySalaryLessThan(salaryInt));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidSalaryInput", "Invalid salary input!");
+        }
     }
 
     @Override
-    public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryGreaterThan(Integer salary) {
-        if (salary == null || salary < 0) {
-            throw CompanyManagementException.badRequest ("InvalidSalaryInput", "Invalid input! Target salary must be a positive number.");
+    public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryGreaterThan(String salary) {
+        boolean valid = true;
+        Integer salaryInt = 0;
+        if (salary == null || salary.trim().isBlank() || salary.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                salaryInt = Integer.parseInt(salary);
+            } catch (Exception e) {
+                valid = false;
+            }
         }
-        return ResponseEntity.ok(employeeService.getEmployeeBySalaryGreaterThan(salary));
+
+        if (valid) {
+            return ResponseEntity.ok(employeeService.getEmployeeBySalaryGreaterThan(salaryInt));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidSalaryInput", "Invalid salary input!");
+        }
     }
 
     //Department
@@ -186,8 +212,23 @@ public class CompanyResource implements CompanyAPI {
     }
 
     @Override
-    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(Integer hours) {
-        return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourLessThan(hours));
+    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(String hours) {
+        boolean valid = true;
+        Integer hoursInt = 0;
+        if (hours == null || hours.trim().isBlank() || hours.isEmpty()) {
+            valid = false;
+        } else {
+            try {
+                hoursInt = Integer.parseInt(hours);
+            } catch (Exception e) {
+                valid = false;
+            }
+        }
+        if (valid)
+            return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourLessThan(hoursInt));
+        else {
+            throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours.");
+        }
     }
 
     @Override

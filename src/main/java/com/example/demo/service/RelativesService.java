@@ -36,18 +36,30 @@ public class RelativesService {
     }
 
     public List<RelativesRestDTO> getRelativesByFullNameStartingWith(String s) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return relativesMapper.toRestDTOs(relativesRepository.findByFullNameStartingWith(s));
     }
 
     public List<RelativesRestDTO> getRelativesByFullNameEndingWith(String s) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return relativesMapper.toRestDTOs(relativesRepository.findByFullNameEndingWith(s));
     }
 
     public List<RelativesRestDTO> getRelativesByPhoneNumberContaining(String s) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return relativesMapper.toRestDTOs(relativesRepository.findByPhoneNumberContaining(s));
     }
 
     public List<RelativesRestDTO> getRelativesByRelationshipEquals(String s) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return relativesMapper.toRestDTOs(relativesRepository.findByRelationshipEquals(s));
     }
 
@@ -80,6 +92,7 @@ public class RelativesService {
     }
 
     public List<RelativesRestDTO> getRelativesByEmployeeId(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
         return relativesMapper.toRestDTOs(relativesRepository.getRelativesByEmployeeId(employeeId));
     }
 }

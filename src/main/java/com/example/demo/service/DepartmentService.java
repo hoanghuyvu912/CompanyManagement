@@ -35,6 +35,9 @@ public class DepartmentService {
         if (localDate == null) {
             throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
         }
+        if (localDate.isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Date cannot be after current date.");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDate(localDate));
     }
 
@@ -42,12 +45,18 @@ public class DepartmentService {
         if (localDate == null) {
             throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
         }
+        if (localDate.isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Date cannot be after current date.");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateAfter(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByDateBefore(LocalDate localDate) {
         if (localDate == null) {
             throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
+        }
+        if (localDate.isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Date cannot be after current date.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBefore(localDate));
     }
@@ -59,11 +68,20 @@ public class DepartmentService {
         if (endDate == null) {
             throw CompanyManagementException.badRequest("SecondDateMissing", "Second date missing.");
         }
+        if (beginDate.isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Date cannot be after current date.");
+        }
+        if (beginDate.isAfter(endDate)) {
+            throw CompanyManagementException.badRequest("BeginDateAfterEndDate", "First date must be before second date.");
+        }
+        if (endDate.isBefore(beginDate)) {
+            throw CompanyManagementException.badRequest("EndDateBeforeBeginDate", "Second date must be after first date.");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBetween(beginDate, endDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByNameIgnoreCase(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByNameIgnoreCase(s));
@@ -90,7 +108,7 @@ public class DepartmentService {
 
 
     public List<DepartmentWithNumOfProjectsDTO> getDeptWithNumberOfProjectsGreaterThan(Long num) {
-        if(num == null){
+        if (num == null) {
             throw CompanyManagementException.badRequest("NumMissing", "Number of projects is missing.");
         }
         return departmentRepository.getDeptWithNumberOfProjectsGreaterThan(num);

@@ -32,9 +32,9 @@ public class LocationResource implements LocationAPI {
 
 
     @Override
-    public ResponseEntity<Location> updateLocation(LocationDTO locationDTO, Long deptId, Long locationId) {
-        Location location = locationService.updateLocation(locationDTO, locationId);
-        return ResponseEntity.ok().body(location);
+    public ResponseEntity<LocationRestDTO> updateLocation(LocationDTO locationDTO, Long deptId, Long locationId) {
+        LocationRestDTO locationRestDTO = locationService.updateLocation(locationDTO, locationId);
+        return ResponseEntity.ok().body(locationRestDTO);
     }
 
     @Override

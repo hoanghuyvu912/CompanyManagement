@@ -28,10 +28,10 @@ public interface CompanyAPI {
     ResponseEntity<List<EmployeeRestDTO>> getEmployeeByFirstName(@RequestParam("firstName") String firstName);
 
     @GetMapping(value = "/employees/salaryLessThan")
-    ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryLessThan(@RequestParam("salary") Integer salary);
+    ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryLessThan(@RequestParam("salary") String salary);
 
     @GetMapping(value = "/employees/salaryGreaterThan")
-    ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryGreaterThan(@RequestParam("salary") Integer salary);
+    ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryGreaterThan(@RequestParam("salary") String salary);
 
     //Department
     @GetMapping(value = "/departments")
@@ -105,8 +105,11 @@ public interface CompanyAPI {
     @GetMapping(value = "/assignments")
     ResponseEntity<List<AssignmentRestDTO>> getAllAssignment();
 
+//    @GetMapping(value = "/assignments/hour_less_than")
+//    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(@RequestParam("hour") Integer hour);
+
     @GetMapping(value = "/assignments/hour_less_than")
-    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(@RequestParam("hour") Integer hour);
+    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(@RequestParam("hour") String hour);
 
     @GetMapping(value = "/assignments/hour_less_than_equal")
     ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThanEqual(@RequestParam("hour") Integer hour);
