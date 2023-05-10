@@ -32,18 +32,33 @@ public class DepartmentService {
     }
 
     public List<DepartmentRestDTO> getDepartmentByDate(LocalDate localDate) {
+        if (localDate == null) {
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDate(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByDateAfter(LocalDate localDate) {
+        if (localDate == null) {
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateAfter(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByDateBefore(LocalDate localDate) {
+        if (localDate == null) {
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBefore(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByStartDateBetween(LocalDate beginDate, LocalDate endDate) {
+        if (beginDate == null) {
+            throw CompanyManagementException.badRequest("FirstDateMissing", "First date missing");
+        }
+        if (endDate == null) {
+            throw CompanyManagementException.badRequest("SecondDateMissing", "Second date missing");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBetween(beginDate, endDate));
     }
 

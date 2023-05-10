@@ -3,7 +3,6 @@ package com.example.demo.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @AllArgsConstructor
 public class ResponseException extends RuntimeException {

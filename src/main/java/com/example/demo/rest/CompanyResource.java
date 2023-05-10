@@ -1,6 +1,7 @@
 package com.example.demo.rest;
 
 import com.example.demo.entity.*;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.service.*;
 import com.example.demo.service.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -27,26 +28,44 @@ public class CompanyResource implements CompanyAPI {
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
+        if (lastName == null || lastName.isBlank() || firstName == null || lastName.isBlank()) {
+            throw CompanyManagementException.badRequest ("FieldMissing", "Required field is missing");
+        }
         return ResponseEntity.ok(employeeService.getEmployeeByLastNameAndFirstName(lastName, firstName));
     }
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByLastNameOrFirstName(String lastName, String firstName) {
+        if (lastName == null || lastName.isBlank()) {
+            throw CompanyManagementException.badRequest ("LastNameMissing", "Last name is missing");
+        }
+        if (firstName == null || firstName.isBlank()) {
+            throw CompanyManagementException.badRequest ("FirstNameMissing", "First name is missing");
+        }
         return ResponseEntity.ok(employeeService.getEmployeeByLastNameOrFirstName(lastName, firstName));
     }
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByFirstName(String firstName) {
+        if (firstName == null || firstName.isBlank()) {
+            throw CompanyManagementException.badRequest ("FirstNameMissing", "First name is missing");
+        }
         return ResponseEntity.ok(employeeService.getEmployeeByFirstName(firstName));
     }
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryLessThan(Integer salary) {
+        if (salary == null || salary < 0) {
+            throw CompanyManagementException.badRequest ("InvalidSalaryInput", "Invalid input! Target salary must be a positive number.");
+        }
         return ResponseEntity.ok(employeeService.getEmployeeBySalaryLessThan(salary));
     }
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeBySalaryGreaterThan(Integer salary) {
+        if (salary == null || salary < 0) {
+            throw CompanyManagementException.badRequest ("InvalidSalaryInput", "Invalid input! Target salary must be a positive number.");
+        }
         return ResponseEntity.ok(employeeService.getEmployeeBySalaryGreaterThan(salary));
     }
 
