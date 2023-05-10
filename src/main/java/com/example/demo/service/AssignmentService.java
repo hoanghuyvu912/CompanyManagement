@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.Assignment;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Project;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.AssignmentRepository;
 import com.example.demo.respository.DepartmentRepository;
 import com.example.demo.respository.EmployeeRepository;
@@ -29,13 +30,10 @@ public class AssignmentService {
     }
 
     public AssignmentRestDTO getAssignmentById(Long assignmentId, Long projectId, Long employeeId) {
-        Optional<Project> project = projectRepository.findById(projectId);
-        Optional<Employee> employee = employeeRepository.findById(employeeId);
-        Optional<Assignment> assignment = null;
-        if (project.isPresent() && employee.isPresent()) {
-            assignment = assignmentRepository.findById(assignmentId);
-        }
-        return assignmentMapper.toRestDTO(assignment.get());
+        Project project = projectRepository.findById(projectId).orElseThrow(CompanyManagementException::ProjectNotFound);
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
+        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(CompanyManagementException::AssignmentNotFound);
+        return assignmentMapper.toRestDTO(assignment);
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourLessThan(Integer h) {

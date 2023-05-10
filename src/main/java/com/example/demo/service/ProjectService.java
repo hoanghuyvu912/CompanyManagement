@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Project;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.DepartmentRepository;
 import com.example.demo.respository.ProjectRepository;
 import com.example.demo.service.dto.ProjectDTO;
@@ -24,40 +25,38 @@ public class ProjectService {
         return projectMapper.toRestDTOs(projectRepository.findAll());
     }
 
-    public Optional<Project> getProjectById(Long projectId, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
-        Optional<Project> optionalProject = null;
-        if (department.isPresent()) {
-            optionalProject = projectRepository.findById(projectId);
-        }
-        return optionalProject;
+    public ProjectRestDTO getProjectById(Long projectId, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        Project project = projectRepository.findById(projectId).orElseThrow(CompanyManagementException::ProjectNotFound);
+        return projectMapper.toRestDTO(project);
     }
 
     public List<ProjectRestDTO> getAllOrderByProjectName() {
         return projectMapper.toRestDTOs(projectRepository.findAllProjectByOrderByProjectName());
     }
 
-    public List<Project> getProjectByAreaIgnoreCase(String area, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
-        List<Project> list = null;
-        if (department.isPresent()) {
-            list = projectRepository.findByAreaIgnoreCase(area);
+    public List<ProjectRestDTO> getProjectByAreaIgnoreCase(String area, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        if (area == null || area.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
         }
-        return list;
+        List<Project> list = projectRepository.findByAreaIgnoreCase(area);
+        return projectMapper.toRestDTOs(list);
     }
 
     public Project createProject(ProjectDTO projectDTO, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
         Project project = new Project();
         project.setArea(projectDTO.getArea());
         project.setProjectName(projectDTO.getProjectName());
-        if (department.isPresent()) {
-            project.setDepartment(department.get());
-        }
+        project.setDepartment(department);
         return projectRepository.save(project);
     }
 
     public List<ProjectRestDTO> getProjectByProjectNameNot(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return projectMapper.toRestDTOs(projectRepository.findByProjectNameNot(s));
     }
 

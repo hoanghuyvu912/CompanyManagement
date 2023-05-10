@@ -3,6 +3,7 @@ package com.example.demo.rest;
 import com.example.demo.entity.Relatives;
 import com.example.demo.service.RelativesService;
 import com.example.demo.service.dto.RelativesDTO;
+import com.example.demo.service.dto.RelativesRestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +18,9 @@ public class RelativesResource implements RelativesAPI {
     private final RelativesService relativesService;
 
     @Override
-    public ResponseEntity<Relatives> getRelativesById(Long relativesId, Long employeeId) {
-        Optional<Relatives> optionalRelatives = relativesService.getRelativesByID(relativesId, employeeId);
-        return ResponseEntity.ok(optionalRelatives.get());
+    public ResponseEntity<RelativesRestDTO> getRelativesById(Long relativesId, Long employeeId) {
+        RelativesRestDTO relativesRestDTO = relativesService.getRelativesByID(relativesId, employeeId);
+        return ResponseEntity.ok(relativesRestDTO);
     }
 
     @Override
