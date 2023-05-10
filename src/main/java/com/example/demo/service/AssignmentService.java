@@ -37,9 +37,6 @@ public class AssignmentService {
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourLessThan(Integer h) {
-        if (String.valueOf(h) == null || String.valueOf(h).isBlank()) {
-            throw CompanyManagementException.badRequest("HourMissing", "The number of hours is missing.");
-        }
         if (h <= 0) {
             throw CompanyManagementException.badRequest("InvalidHourInput", "The number of hours must be a positive number.");
         }
@@ -47,9 +44,6 @@ public class AssignmentService {
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourLessThanEqual(Integer h) {
-        if (h == null) {
-            throw CompanyManagementException.badRequest("HourMissing", "The number of hours is missing.");
-        }
         if (h <= 0) {
             throw CompanyManagementException.badRequest("InvalidHourInput", "The number of hours must be a positive number.");
         }
@@ -57,9 +51,6 @@ public class AssignmentService {
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourGreaterThan(Integer h) {
-        if (h == null) {
-            throw CompanyManagementException.badRequest("HourMissing", "The number of hours is missing.");
-        }
         if (h <= 0) {
             throw CompanyManagementException.badRequest("InvalidHourInput", "The number of hours must be a positive number.");
         }
@@ -67,9 +58,6 @@ public class AssignmentService {
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourGreaterThanEqual(Integer h) {
-        if (h == null) {
-            throw CompanyManagementException.badRequest("HourMissing", "The number of hours is missing.");
-        }
         if (h <= 0) {
             throw CompanyManagementException.badRequest("InvalidHourInput", "The number of hours must be a positive number.");
         }
@@ -77,12 +65,6 @@ public class AssignmentService {
     }
 
     public List<AssignmentRestDTO> getAssignmentByNumberOfHourBetween(Integer h1, Integer h2) {
-        if (h1 == null) {
-            throw CompanyManagementException.badRequest("FirstHourMissing", "First number of hours is missing.");
-        }
-        if (h2 == null) {
-            throw CompanyManagementException.badRequest("SecondHourMissing", "Second number of hours is missing.");
-        }
         if (h1 <= 0 || h2 <= 0) {
             throw CompanyManagementException.badRequest("InvalidHourInput", "The number of hours must be a positive number.");
         }

@@ -105,21 +105,18 @@ public interface CompanyAPI {
     @GetMapping(value = "/assignments")
     ResponseEntity<List<AssignmentRestDTO>> getAllAssignment();
 
-//    @GetMapping(value = "/assignments/hour_less_than")
-//    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(@RequestParam("hour") Integer hour);
-
     @GetMapping(value = "/assignments/hour_less_than")
     ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThan(@RequestParam("hour") String hour);
 
     @GetMapping(value = "/assignments/hour_less_than_equal")
-    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThanEqual(@RequestParam("hour") Integer hour);
+    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThanEqual(@RequestParam("hour") String hour);
 
     @GetMapping(value = "/assignments/hour_greater_than")
-    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThan(@RequestParam("hour") Integer hour);
+    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThan(@RequestParam("hour") String hour);
 
     @GetMapping(value = "/assignments/hour_greater_than_equal")
-    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThanEqual(@RequestParam("hour") Integer hour);
+    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThanEqual(@RequestParam("hour") String hour);
 
     @GetMapping(value = "/assignments/hour_between")
-    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourBetween(@Param("hour") Integer hour1, @Param("hour") Integer hour2);
+    ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourBetween(@Param("hour") String hour1, @Param("hour") String hour2);
 }

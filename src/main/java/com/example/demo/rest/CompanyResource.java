@@ -232,22 +232,88 @@ public class CompanyResource implements CompanyAPI {
     }
 
     @Override
-    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThanEqual(Integer hours) {
-        return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourLessThanEqual(hours));
+    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourLessThanEqual(String hours) {
+        boolean valid = true;
+        Integer hoursInt = 0;
+        if (hours == null || hours.trim().isBlank() || hours.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                hoursInt = Integer.parseInt(hours);
+            } catch (Exception e) {
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourLessThanEqual(hoursInt));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours input!");
+        }
     }
 
     @Override
-    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThan(Integer hours) {
-        return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourGreaterThan(hours));
+    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThan(String hours) {
+        boolean valid = true;
+        Integer hoursInt = 0;
+        if (hours == null || hours.trim().isBlank() || hours.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                hoursInt = Integer.parseInt(hours);
+            } catch (Exception e) {
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourGreaterThan(hoursInt));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours input!");
+        }
     }
 
     @Override
-    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThanEqual(Integer hours) {
-        return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourGreaterThanEqual(hours));
+    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourGreaterThanEqual(String hours) {
+        boolean valid = true;
+        Integer hoursInt = 0;
+        if (hours == null || hours.trim().isBlank() || hours.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                hoursInt = Integer.parseInt(hours);
+            } catch (Exception e) {
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourGreaterThanEqual(hoursInt));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours input!");
+        }
     }
 
     @Override
-    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourBetween(Integer hour1, Integer hour2) {
-        return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourBetween(hour1, hour2));
+    public ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourBetween(String hour1, String hour2) {
+        boolean valid = true;
+        Integer hourInt1 = 0;
+        Integer hourInt2 = 0;
+
+        if (hour1 == null || hour1.trim().isBlank() || hour1.isEmpty() || hour2 == null || hour2.trim().isBlank() || hour2.isEmpty()) {
+            valid = false;
+        } else {
+            try{
+                hourInt1 = Integer.parseInt(hour1);
+                hourInt2 = Integer.parseInt(hour2);
+            } catch (Exception e) {
+                valid = false;
+            }
+        }
+        if (valid) {
+            return ResponseEntity.ok(assignmentService.getAssignmentByNumberOfHourBetween(hourInt1, hourInt2));
+        } else {
+            throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours input!");
+        }
     }
 }
