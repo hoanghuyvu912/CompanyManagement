@@ -15,10 +15,10 @@ public interface AssignmentAPI {
     ResponseEntity<AssignmentRestDTO> getAssignmentById(@PathVariable Long assignmentId, @PathVariable Long projectId, @PathVariable Long employeeId);
 
     @PostMapping
-    ResponseEntity<Assignment> createAssignment(@RequestBody AssignmentDTO assignmentDTO, @PathVariable Long employeeId, @PathVariable Long projectId);
+    ResponseEntity<AssignmentRestDTO> createAssignment(@RequestBody AssignmentDTO assignmentDTO, @PathVariable Long employeeId, @PathVariable Long projectId);
 
     @PutMapping(value = "/{assignmentId}")
-    ResponseEntity<Assignment> updateAssignment(@RequestBody AssignmentDTO assignmentDTO, @PathVariable Long assignmentId);
+    ResponseEntity<AssignmentRestDTO> updateAssignment(@RequestBody AssignmentDTO assignmentDTO, @PathVariable Long assignmentId);
 
     @DeleteMapping(value = "/{assignmentId}")
     ResponseEntity<Void> deleteAssignment(@PathVariable Long assignmentId);

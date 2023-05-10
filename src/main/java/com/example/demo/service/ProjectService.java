@@ -44,13 +44,13 @@ public class ProjectService {
         return projectMapper.toRestDTOs(list);
     }
 
-    public Project createProject(ProjectDTO projectDTO, Long deptId) {
+    public ProjectRestDTO createProject(ProjectDTO projectDTO, Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
         Project project = new Project();
         project.setArea(projectDTO.getArea());
         project.setProjectName(projectDTO.getProjectName());
         project.setDepartment(department);
-        return projectRepository.save(project);
+        return projectMapper.toRestDTO(projectRepository.save(project));
     }
 
     public List<ProjectRestDTO> getProjectByProjectNameNot(String s) {
@@ -68,12 +68,11 @@ public class ProjectService {
         return projectMapper.toRestDTOs(projectRepository.findByAreaNotNull());
     }
 
-    public Project updateProject(ProjectDTO projectDTO, Long projectId) {
-        Optional<Project> project = projectRepository.findById(projectId);
-        Project updatedProject = project.get();
-        updatedProject.setArea(projectDTO.getArea());
-        updatedProject.setProjectName(projectDTO.getProjectName());
-        return projectRepository.save(updatedProject);
+    public ProjectRestDTO updateProject(ProjectDTO projectDTO, Long projectId) {
+        Project project = projectRepository.findById(projectId).orElseThrow(CompanyManagementException::ProjectNotFound);
+        project.setArea(projectDTO.getArea());
+        project.setProjectName(projectDTO.getProjectName());
+        return projectMapper.toRestDTO(projectRepository.save(project));
     }
 
     public void deleteProject(Long projectId) {

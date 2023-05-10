@@ -15,11 +15,11 @@ public interface ProjectAPI {
     ResponseEntity<ProjectRestDTO> getProjectById(@PathVariable Long projectId, @PathVariable Long deptId);
 
     @PostMapping
-    ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO, @PathVariable("deptId") Long deptId);
+    ResponseEntity<ProjectRestDTO> createProject(@RequestBody ProjectDTO projectDTO, @PathVariable("deptId") Long deptId);
 
 
     @PutMapping(value = "/{projectId}")
-    ResponseEntity<Project> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable Long projectId);
+    ResponseEntity<ProjectRestDTO> updateProject(@RequestBody ProjectDTO projectDTO, @PathVariable Long projectId);
 
     @DeleteMapping(value = "/{projectId}")
     ResponseEntity<Void> deleteProject(@PathVariable Long projectId);

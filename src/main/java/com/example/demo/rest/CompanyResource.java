@@ -102,7 +102,7 @@ public class CompanyResource implements CompanyAPI {
     }
 
     @Override
-    public ResponseEntity<List<Employee>> getEmployeesByDeptId(Long deptId) {
+    public ResponseEntity<List<EmployeeRestDTO>> getEmployeesByDeptId(Long deptId) {
         return ResponseEntity.ok(employeeService.getEmployeesByDepartmentId(deptId));
     }
 

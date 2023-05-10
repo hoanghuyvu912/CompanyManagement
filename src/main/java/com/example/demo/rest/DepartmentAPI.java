@@ -35,10 +35,10 @@ public interface DepartmentAPI {
     ResponseEntity<List<DepartmentRestDTO>> getDepartmentByNameIgnoreCase(@RequestParam("name") String name);
 
     @PostMapping
-    ResponseEntity<Department> createDepartment(@RequestBody DepartmentDTO departmentDTO);
+    ResponseEntity<DepartmentRestDTO> createDepartment(@RequestBody DepartmentDTO departmentDTO);
 
     @PutMapping(value = "/{deptId}")
-    ResponseEntity<Department> updateDepartment(@RequestBody DepartmentDTO departmentDTO, @PathVariable Long deptId);
+    ResponseEntity<DepartmentRestDTO> updateDepartment(@RequestBody DepartmentDTO departmentDTO, @PathVariable Long deptId);
 
     @DeleteMapping(value = "/{deptId}")
     ResponseEntity<Void> deleteDepartment(@PathVariable Long deptId);

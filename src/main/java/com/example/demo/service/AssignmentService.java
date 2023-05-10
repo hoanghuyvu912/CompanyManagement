@@ -71,26 +71,21 @@ public class AssignmentService {
         return assignmentMapper.toRestDTOs(assignmentRepository.findByNumberOfHourBetween(h1, h2));
     }
 
-    public Assignment createAssignment(AssignmentDTO assignmentDTO, Long deptId, Long employeeId) {
-        Optional<Project> project = projectRepository.findById(deptId);
-        Optional<Employee> employee = employeeRepository.findById(employeeId);
+    public AssignmentRestDTO createAssignment(AssignmentDTO assignmentDTO, Long deptId, Long employeeId) {
+        Project project = projectRepository.findById(deptId).orElseThrow(CompanyManagementException::ProjectNotFound);
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
 
         Assignment assignment = new Assignment();
         assignment.setNumberOfHour(assignmentDTO.getNumberOfHour());
-        if (project.isPresent()) {
-            assignment.setProject(project.get());
-        }
-        if (employee.isPresent()) {
-            assignment.setEmployee(employee.get());
-        }
-        return assignmentRepository.save(assignment);
+        assignment.setProject(project);
+        assignment.setEmployee(employee);
+        return assignmentMapper.toRestDTO(assignmentRepository.save(assignment));
     }
 
-    public Assignment updateAssignment(AssignmentDTO assignmentDTO, Long assignmentId) {
-        Optional<Assignment> assignment = assignmentRepository.findById(assignmentId);
-        Assignment updatedAssignment = new Assignment();
-        updatedAssignment.setNumberOfHour(assignmentDTO.getNumberOfHour());
-        return assignmentRepository.save(updatedAssignment);
+    public AssignmentRestDTO updateAssignment(AssignmentDTO assignmentDTO, Long assignmentId) {
+        Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        assignment.setNumberOfHour(assignmentDTO.getNumberOfHour());
+        return assignmentMapper.toRestDTO(assignmentRepository.save(assignment));
     }
 
     public void deleteAssignment(Long assignmentId) {
