@@ -4,6 +4,7 @@ import com.example.demo.entity.Employee;
 import com.example.demo.entity.Location;
 import com.example.demo.service.dto.EmployeeDTO;
 import com.example.demo.service.dto.LocationDTO;
+import com.example.demo.service.dto.LocationRestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping(value = "/api/departments/{deptId}/locations")
 public interface LocationAPI {
     @GetMapping(value = "/{locationId}")
-    ResponseEntity<Location> getLocationById(@PathVariable("locationId") Long locationId, @PathVariable("deptId") Long deptId);
+    ResponseEntity<LocationRestDTO> getLocationById(@PathVariable("locationId") Long locationId, @PathVariable("deptId") Long deptId);
 
     @PostMapping
     ResponseEntity<Location> createLocation(@RequestBody LocationDTO locationDTO, @PathVariable("deptId") Long deptId);

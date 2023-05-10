@@ -71,7 +71,7 @@ public interface CompanyAPI {
     ResponseEntity<List<ProjectRestDTO>> getProjectByAreaIsNull();
 
     @GetMapping(value = "/projects/area_ignore_case/")
-    ResponseEntity<List<Project>> getProjectByAreaIgnoreCase(@RequestParam("area") String area, @PathParam("deptId") Long deptId);
+    ResponseEntity<List<ProjectRestDTO>> getProjectByAreaIgnoreCase(@RequestParam("area") String area, @PathParam("deptId") Long deptId);
 
     @GetMapping(value = "/projects/area_not_null")
     ResponseEntity<List<ProjectRestDTO>> getProjectByAreaNotNull();

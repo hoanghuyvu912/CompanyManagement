@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Relatives;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.EmployeeRepository;
 import com.example.demo.respository.RelativesRepository;
 import com.example.demo.service.dto.RelativesDTO;
@@ -24,13 +25,10 @@ public class RelativesService {
         return relativesMapper.toRestDTOs(relativesRepository.findAll());
     }
 
-    public Optional<Relatives> getRelativesByID(Long relativesId, Long employeeId) {
-        Optional<Employee> employee = employeeRepository.findById(employeeId);
-        Optional<Relatives> optionalRelatives = null;
-        if (employee.isPresent()) {
-            optionalRelatives = relativesRepository.findById(relativesId);
-        }
-        return optionalRelatives;
+    public RelativesRestDTO getRelativesByID(Long relativesId, Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
+        Relatives relatives = relativesRepository.findById(relativesId).orElseThrow(CompanyManagementException::RelativesNotFound);
+        return relativesMapper.toRestDTO(relatives);
     }
 
     public List<RelativesRestDTO> getAllRelativesByOrderByFullNameAsc() {

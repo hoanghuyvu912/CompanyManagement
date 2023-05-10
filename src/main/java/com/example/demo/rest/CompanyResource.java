@@ -128,7 +128,7 @@ public class CompanyResource implements CompanyAPI {
     }
 
     @Override
-    public ResponseEntity<List<Project>> getProjectByAreaIgnoreCase(String area, Long deptId) {
+    public ResponseEntity<List<ProjectRestDTO>> getProjectByAreaIgnoreCase(String area, Long deptId) {
         return ResponseEntity.ok(projectService.getProjectByAreaIgnoreCase(area, deptId));
     }
 

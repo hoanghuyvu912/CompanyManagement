@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Location;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.DepartmentRepository;
 import com.example.demo.respository.LocationRepository;
 import com.example.demo.service.dto.LocationDTO;
@@ -25,32 +26,44 @@ public class LocationService {
         return locationMapper.toRestDTOs(locationRepository.findAll());
     }
 
-    public Optional<Location> getLocationById(Long locationId, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
-        Optional<Location> optionalLocation = null;
-        if (department.isPresent()) {
-            optionalLocation = locationRepository.findById(locationId);
-        }
-        return optionalLocation;
+    public LocationRestDTO getLocationById(Long locationId, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        Location location = locationRepository.findById(locationId).orElseThrow(CompanyManagementException::LocationNotFound);
+        return locationMapper.toRestDTO(location);
     }
 
     public List<LocationRestDTO> getLocationByLocationLike(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
+        }
         return locationMapper.toRestDTOs(locationRepository.findByLocationLike("%" + s + "%"));
     }
 
     public List<LocationRestDTO> getLocationByLocationNotLike(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
+        }
         return locationMapper.toRestDTOs(locationRepository.findByLocationNotLike("%" + s + "%"));
     }
 
     public List<LocationRestDTO> getLocationByLocationStartingWith(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
+        }
         return locationMapper.toRestDTOs(locationRepository.findByLocationStartingWith(s));
     }
 
     public List<LocationRestDTO> getLocationByLocationEndingWith(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
+        }
         return locationMapper.toRestDTOs(locationRepository.findByLocationEndingWith(s));
     }
 
     public List<LocationRestDTO> getLocationByLocationContaining(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
+        }
         return locationMapper.toRestDTOs(locationRepository.findByLocationContaining(s));
     }
 

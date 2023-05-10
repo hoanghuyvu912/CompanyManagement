@@ -5,6 +5,7 @@ import com.example.demo.entity.Project;
 import com.example.demo.service.ProjectService;
 import com.example.demo.service.dto.EmployeeDTO;
 import com.example.demo.service.dto.ProjectDTO;
+import com.example.demo.service.dto.ProjectRestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,9 @@ public class ProjectResource implements ProjectAPI {
     private final ProjectService projectService;
 
     @Override
-    public ResponseEntity<Project> getProjectById(Long projectId, Long deptId) {
-        Optional<Project> optionalProject = projectService.getProjectById(projectId, deptId);
-        return ResponseEntity.ok(optionalProject.get());
+    public ResponseEntity<ProjectRestDTO> getProjectById(Long projectId, Long deptId) {
+        ProjectRestDTO projectRestDTO = projectService.getProjectById(projectId, deptId);
+        return ResponseEntity.ok(projectRestDTO);
     }
 
     @Override

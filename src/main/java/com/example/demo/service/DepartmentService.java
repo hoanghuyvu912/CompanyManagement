@@ -33,36 +33,39 @@ public class DepartmentService {
 
     public List<DepartmentRestDTO> getDepartmentByDate(LocalDate localDate) {
         if (localDate == null) {
-            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDate(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByDateAfter(LocalDate localDate) {
         if (localDate == null) {
-            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateAfter(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByDateBefore(LocalDate localDate) {
         if (localDate == null) {
-            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing");
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBefore(localDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByStartDateBetween(LocalDate beginDate, LocalDate endDate) {
         if (beginDate == null) {
-            throw CompanyManagementException.badRequest("FirstDateMissing", "First date missing");
+            throw CompanyManagementException.badRequest("FirstDateMissing", "First date missing.");
         }
         if (endDate == null) {
-            throw CompanyManagementException.badRequest("SecondDateMissing", "Second date missing");
+            throw CompanyManagementException.badRequest("SecondDateMissing", "Second date missing.");
         }
         return departmentMapper.toRestDTOs(departmentRepository.findByStartDateBetween(beginDate, endDate));
     }
 
     public List<DepartmentRestDTO> getDepartmentByNameIgnoreCase(String s) {
+        if (s == null || s.isBlank()) {
+            throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
+        }
         return departmentMapper.toRestDTOs(departmentRepository.findByNameIgnoreCase(s));
     }
 
@@ -87,6 +90,9 @@ public class DepartmentService {
 
 
     public List<DepartmentWithNumOfProjectsDTO> getDeptWithNumberOfProjectsGreaterThan(Long num) {
+        if(num == null){
+            throw CompanyManagementException.badRequest("NumMissing", "Number of projects is missing.");
+        }
         return departmentRepository.getDeptWithNumberOfProjectsGreaterThan(num);
     }
 

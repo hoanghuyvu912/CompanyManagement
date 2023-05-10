@@ -4,6 +4,7 @@ import com.example.demo.entity.Employee;
 import com.example.demo.entity.Location;
 import com.example.demo.service.LocationService;
 import com.example.demo.service.dto.LocationDTO;
+import com.example.demo.service.dto.LocationRestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,9 @@ public class LocationResource implements LocationAPI {
     private final LocationService locationService;
 
     @Override
-    public ResponseEntity<Location> getLocationById(Long locationId, Long deptId) {
-        Optional<Location> optionalLocation = locationService.getLocationById(locationId, deptId);
-        return ResponseEntity.ok(optionalLocation.get());
+    public ResponseEntity<LocationRestDTO> getLocationById(Long locationId, Long deptId) {
+        LocationRestDTO locationRestDTO = locationService.getLocationById(locationId, deptId);
+        return ResponseEntity.ok(locationRestDTO);
     }
 
     @Override

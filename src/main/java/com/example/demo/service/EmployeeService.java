@@ -34,6 +34,12 @@ public class EmployeeService {
     }
 
     public List<EmployeeRestDTO> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
+        if(lastName == null || lastName.isBlank()) {
+            throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing.");
+        }
+        if(firstName == null || firstName.isBlank()) {
+            throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing.");
+        }
         return employeeMapper.toRestDTOs(employeeRepository.findByLastNameAndFirstName(lastName, firstName));
     }
 
@@ -48,6 +54,9 @@ public class EmployeeService {
 //    }
 
     public List<EmployeeRestDTO> getEmployeeByLastNameOrFirstName(String lastName, String firstName) {
+        if(lastName == null || lastName.isBlank() || firstName == null || firstName.isBlank()) {
+            throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing.");
+        }
         return employeeMapper.toRestDTOs(employeeRepository.findByLastNameOrFirstName(lastName, firstName));
     }
 
