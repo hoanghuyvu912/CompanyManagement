@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
+import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.DepartmentRepository;
 import com.example.demo.respository.EmployeeRepository;
 import com.example.demo.service.dto.EmployeeDTO;
@@ -22,22 +23,14 @@ public class EmployeeService {
     private final DepartmentRepository departmentRepository;
     private final EmployeeMapper employeeMapper;
 
-//    public List<Employee> getAllEmployee() {
-//        return employeeRepository.findAll();
-//    }
-
     public List<EmployeeRestDTO> getAllEmployee() {
         return employeeMapper.toRestDTOs(employeeRepository.findAll());
     }
 
-
-    public Optional<Employee> getEmployeeById(Long employeeId, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
-        Optional<Employee> optionalEmployee = null;
-        if (department.isPresent()) {
-            optionalEmployee = employeeRepository.findById(employeeId);
-        }
-        return optionalEmployee;
+    public EmployeeRestDTO getEmployeeById(Long employeeId, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
+        return employeeMapper.toRestDTO(employee);
     }
 
     public List<EmployeeRestDTO> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
@@ -70,8 +63,10 @@ public class EmployeeService {
         return employeeMapper.toRestDTOs(employeeRepository.findBySalaryGreaterThan(salary));
     }
 
-    public Employee createEmployee(EmployeeDTO employeeDTO, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
+    public EmployeeRestDTO createEmployee(EmployeeDTO employeeDTO, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+
+//        Optional<Department> department = departmentRepository.findById(deptId);
         Employee employee = new Employee();
         employee.setDateOfBirth(employeeDTO.getDateOfBirth());
         employee.setFirstName(employeeDTO.getFirstName());
@@ -79,13 +74,12 @@ public class EmployeeService {
         employee.setMiddleName(employeeDTO.getMiddleName());
         employee.setGender(employeeDTO.getGender());
         employee.setSalary(employeeDTO.getSalary());
-        if (department.isPresent()) {
-            employee.setDepartment(department.get());
-        }
-        return employeeRepository.save(employee);
+        employee.setDepartment(department);
+        employeeRepository.save(employee);
+        return employeeMapper.toRestDTO(employee);
     }
 
-    public Employee updateEmployee(EmployeeDTO employeeDTO, Long employeeId) {
+    public EmployeeRestDTO updateEmployee(EmployeeDTO employeeDTO, Long employeeId) {
         Optional<Employee> employee = employeeRepository.findById(employeeId);
         Employee updatedEmployee = employee.get();
         updatedEmployee.setDateOfBirth(employeeDTO.getDateOfBirth());
@@ -94,7 +88,9 @@ public class EmployeeService {
         updatedEmployee.setMiddleName(employeeDTO.getMiddleName());
         updatedEmployee.setGender(employeeDTO.getGender());
         updatedEmployee.setSalary(employeeDTO.getSalary());
-        return employeeRepository.save(updatedEmployee);
+        employeeRepository.save(updatedEmployee);
+
+        return employeeMapper.toRestDTO(updatedEmployee);
     }
 
     public void deleteEmployee(Long employeeId) {
