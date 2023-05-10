@@ -24,16 +24,16 @@ public class RelativesResource implements RelativesAPI {
     }
 
     @Override
-    public ResponseEntity<Relatives> createRelatives(RelativesDTO relativesDTO, Long employeeId) {
-        Relatives relatives = relativesService.createRelatives(relativesDTO, employeeId);
-        return ResponseEntity.created(URI.create("/api/employee" + employeeId + "/relatives" + relatives.getId())).body(relatives);
+    public ResponseEntity<RelativesRestDTO> createRelatives(RelativesDTO relativesDTO, Long employeeId) {
+        RelativesRestDTO relativesRestDTO = relativesService.createRelatives(relativesDTO, employeeId);
+        return ResponseEntity.created(URI.create("/api/employee" + employeeId + "/relatives" + relativesRestDTO.getId())).body(relativesRestDTO);
     }
 
 
     @Override
-    public ResponseEntity<Relatives> updateRelatives(RelativesDTO relativesDTO, Long employeeId, Long relativesId) {
-        Relatives relatives = relativesService.updateRelatives(relativesDTO, relativesId);
-        return ResponseEntity.ok().body(relatives);
+    public ResponseEntity<RelativesRestDTO> updateRelatives(RelativesDTO relativesDTO, Long employeeId, Long relativesId) {
+        RelativesRestDTO relativesRestDTO = relativesService.updateRelatives(relativesDTO, relativesId);
+        return ResponseEntity.ok().body(relativesRestDTO);
     }
 
     @Override

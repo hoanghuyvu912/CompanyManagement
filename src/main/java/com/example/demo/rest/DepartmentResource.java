@@ -53,14 +53,14 @@ public class DepartmentResource implements DepartmentAPI {
     }
 
     @Override
-    public ResponseEntity<Department> createDepartment(DepartmentDTO departmentDTO) {
+    public ResponseEntity<DepartmentRestDTO> createDepartment(DepartmentDTO departmentDTO) {
         return ResponseEntity.ok(departmentService.createDepartment(departmentDTO));
     }
 
     @Override
-    public ResponseEntity<Department> updateDepartment(DepartmentDTO departmentDTO, Long deptId) {
-        Department department = departmentService.updateDepartment(departmentDTO, deptId);
-        return ResponseEntity.ok().body(department);
+    public ResponseEntity<DepartmentRestDTO> updateDepartment(DepartmentDTO departmentDTO, Long deptId) {
+        DepartmentRestDTO departmentRestDTO = departmentService.updateDepartment(departmentDTO, deptId);
+        return ResponseEntity.ok().body(departmentRestDTO);
     }
 
     @Override

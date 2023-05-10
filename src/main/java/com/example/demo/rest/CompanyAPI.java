@@ -38,7 +38,7 @@ public interface CompanyAPI {
     ResponseEntity<List<DepartmentRestDTO>> getAllDepartment();
 
     @GetMapping(value = "/departments/{deptId}/employees")
-    ResponseEntity<List<Employee>> getEmployeesByDeptId(@PathVariable("deptId") Long deptId);
+    ResponseEntity<List<EmployeeRestDTO>> getEmployeesByDeptId(@PathVariable("deptId") Long deptId);
 
     //Location
     @GetMapping(value = "/locations")

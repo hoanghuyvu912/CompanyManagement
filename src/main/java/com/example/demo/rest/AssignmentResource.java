@@ -25,16 +25,16 @@ public class AssignmentResource implements AssignmentAPI {
     }
 
     @Override
-    public ResponseEntity<Assignment> createAssignment(AssignmentDTO assignmentDTO, Long projectId, Long employeeId) {
-        Assignment assignment = assignmentService.createAssignment(assignmentDTO, projectId, employeeId);
-        return ResponseEntity.created(URI.create("/api/projects/" + projectId + "/employees/" + employeeId + "/" + assignment.getId())).body(assignment);
+    public ResponseEntity<AssignmentRestDTO> createAssignment(AssignmentDTO assignmentDTO, Long projectId, Long employeeId) {
+        AssignmentRestDTO assignmentRestDTO = assignmentService.createAssignment(assignmentDTO, projectId, employeeId);
+        return ResponseEntity.created(URI.create("/api/projects/" + projectId + "/employees/" + employeeId + "/" + assignmentRestDTO.getId())).body(assignmentRestDTO);
     }
 
 
     @Override
-    public ResponseEntity<Assignment> updateAssignment(AssignmentDTO assignmentDTO, Long assignmentId) {
-        Assignment assignment = assignmentService.updateAssignment(assignmentDTO, assignmentId);
-        return ResponseEntity.ok().body(assignment);
+    public ResponseEntity<AssignmentRestDTO> updateAssignment(AssignmentDTO assignmentDTO, Long assignmentId) {
+        AssignmentRestDTO assignmentRestDTO = assignmentService.updateAssignment(assignmentDTO, assignmentId);
+        return ResponseEntity.ok().body(assignmentRestDTO);
     }
 
     @Override

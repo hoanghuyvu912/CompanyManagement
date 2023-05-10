@@ -93,8 +93,7 @@ public class EmployeeService {
         employee.setGender(employeeDTO.getGender());
         employee.setSalary(employeeDTO.getSalary());
         employee.setDepartment(department);
-        employeeRepository.save(employee);
-        return employeeMapper.toRestDTO(employee);
+        return employeeMapper.toRestDTO(employeeRepository.save(employee));
     }
 
     public EmployeeRestDTO updateEmployee(EmployeeDTO employeeDTO, Long employeeId) {
@@ -106,17 +105,15 @@ public class EmployeeService {
         updatedEmployee.setMiddleName(employeeDTO.getMiddleName());
         updatedEmployee.setGender(employeeDTO.getGender());
         updatedEmployee.setSalary(employeeDTO.getSalary());
-        employeeRepository.save(updatedEmployee);
-
-        return employeeMapper.toRestDTO(updatedEmployee);
+        return employeeMapper.toRestDTO(employeeRepository.save(updatedEmployee));
     }
 
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteById(employeeId);
     }
 
-    public List<Employee> getEmployeesByDepartmentId(Long deptId) {
+    public List<EmployeeRestDTO> getEmployeesByDepartmentId(Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
-        return employeeRepository.getEmployeesByDepartmentId(deptId);
+        return employeeMapper.toRestDTOs(employeeRepository.getEmployeesByDepartmentId(deptId));
     }
 }

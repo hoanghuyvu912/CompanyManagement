@@ -64,27 +64,24 @@ public class RelativesService {
     }
 
 
-    public Relatives createRelatives(RelativesDTO relativesDTO, Long employeeId) {
-        Optional<Employee> employee = employeeRepository.findById(employeeId);
+    public RelativesRestDTO createRelatives(RelativesDTO relativesDTO, Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
         Relatives relatives = new Relatives();
         relatives.setFullName(relativesDTO.getFullName());
         relatives.setGender(relativesDTO.getGender());
         relatives.setPhoneNumber(relativesDTO.getPhoneNumber());
         relatives.setRelationship(relativesDTO.getRelationship());
-        if (employee.isPresent()) {
-            relatives.setEmployee(employee.get());
-        }
-        return relativesRepository.save(relatives);
+        relatives.setEmployee(employee);
+        return relativesMapper.toRestDTO(relativesRepository.save(relatives));
     }
 
-    public Relatives updateRelatives(RelativesDTO relativesDTO, Long relativesId) {
-        Optional<Relatives> relatives = relativesRepository.findById(relativesId);
-        Relatives updatedRelatives = relatives.get();
-        updatedRelatives.setGender(relativesDTO.getGender());
-        updatedRelatives.setRelationship(relativesDTO.getRelationship());
-        updatedRelatives.setFullName(relativesDTO.getFullName());
-        updatedRelatives.setPhoneNumber(relativesDTO.getPhoneNumber());
-        return relativesRepository.save(updatedRelatives);
+    public RelativesRestDTO updateRelatives(RelativesDTO relativesDTO, Long relativesId) {
+        Relatives relatives = relativesRepository.findById(relativesId).orElseThrow(CompanyManagementException::RelativesNotFound);
+        relatives.setGender(relativesDTO.getGender());
+        relatives.setRelationship(relativesDTO.getRelationship());
+        relatives.setFullName(relativesDTO.getFullName());
+        relatives.setPhoneNumber(relativesDTO.getPhoneNumber());
+        return relativesMapper.toRestDTO(relativesRepository.save(relatives));
     }
 
     public void deleteRelatives(Long relativesId) {

@@ -26,16 +26,16 @@ public class ProjectResource implements ProjectAPI {
     }
 
     @Override
-    public ResponseEntity<Project> createProject(ProjectDTO projectDTO, Long deptId) {
-        Project project = projectService.createProject(projectDTO, deptId);
-        return ResponseEntity.created(URI.create("/api/departments" + deptId + "/projects/" + project.getId())).body(project);
+    public ResponseEntity<ProjectRestDTO> createProject(ProjectDTO projectDTO, Long deptId) {
+        ProjectRestDTO projectRestDTO = projectService.createProject(projectDTO, deptId);
+        return ResponseEntity.created(URI.create("/api/departments" + deptId + "/projects/" + projectRestDTO.getId())).body(projectRestDTO);
     }
 
 
     @Override
-    public ResponseEntity<Project> updateProject(ProjectDTO projectDTO, Long projectId) {
-        Project project = projectService.updateProject(projectDTO, projectId);
-        return ResponseEntity.ok().body(project);
+    public ResponseEntity<ProjectRestDTO> updateProject(ProjectDTO projectDTO, Long projectId) {
+        ProjectRestDTO projectRestDTO = projectService.updateProject(projectDTO, projectId);
+        return ResponseEntity.ok().body(projectRestDTO);
     }
 
     @Override

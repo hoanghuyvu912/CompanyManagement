@@ -87,19 +87,18 @@ public class DepartmentService {
         return departmentMapper.toRestDTOs(departmentRepository.findByNameIgnoreCase(s));
     }
 
-    public Department createDepartment(DepartmentDTO departmentDTO) {
+    public DepartmentRestDTO createDepartment(DepartmentDTO departmentDTO) {
         Department department = new Department();
         department.setName(departmentDTO.getName());
         department.setStartDate(departmentDTO.getStartDate());
-        return departmentRepository.save(department);
+        return departmentMapper.toRestDTO(departmentRepository.save(department));
     }
 
-    public Department updateDepartment(DepartmentDTO departmentDTO, Long deptId) {
-        Optional<Department> department = departmentRepository.findById(deptId);
-        Department updatedDepartment = department.get();
-        updatedDepartment.setName(departmentDTO.getName());
-        updatedDepartment.setStartDate(departmentDTO.getStartDate());
-        return departmentRepository.save(updatedDepartment);
+    public DepartmentRestDTO updateDepartment(DepartmentDTO departmentDTO, Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        department.setName(departmentDTO.getName());
+        department.setStartDate(departmentDTO.getStartDate());
+        return departmentMapper.toRestDTO(departmentRepository.save(department));
     }
 
     public void deleteDepartment(Long deptId) {

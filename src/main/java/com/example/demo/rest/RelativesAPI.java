@@ -14,10 +14,10 @@ public interface RelativesAPI {
     ResponseEntity<RelativesRestDTO> getRelativesById(@PathVariable("relativesId") Long relativesId, @PathVariable("employeeId") Long employeeId);
 
     @PostMapping
-    ResponseEntity<Relatives> createRelatives(@RequestBody RelativesDTO relativesDTO, @PathVariable("employeeId") Long employeeId);
+    ResponseEntity<RelativesRestDTO> createRelatives(@RequestBody RelativesDTO relativesDTO, @PathVariable("employeeId") Long employeeId);
 
     @PutMapping(value = "/{relativesId}")
-    ResponseEntity<Relatives> updateRelatives(@RequestBody RelativesDTO relativesDTO, @PathVariable("employeeId") Long employeeId, @PathVariable("relativesId") Long relativesId);
+    ResponseEntity<RelativesRestDTO> updateRelatives(@RequestBody RelativesDTO relativesDTO, @PathVariable("employeeId") Long employeeId, @PathVariable("relativesId") Long relativesId);
 
     @DeleteMapping(value = "/{relativesId}")
     ResponseEntity<Void> deleteRelatives(@PathVariable("relativesId") Long relativesId);
