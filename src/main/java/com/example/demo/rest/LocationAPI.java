@@ -20,7 +20,7 @@ public interface LocationAPI {
 
 
     @PutMapping(value = "/{locationId}")
-    ResponseEntity<Location> updateLocation(@RequestBody LocationDTO locationDTO, @PathVariable("deptId") Long deptId, @PathVariable("locationId") Long locationId);
+    ResponseEntity<LocationRestDTO> updateLocation(@RequestBody LocationDTO locationDTO, @PathVariable("deptId") Long deptId, @PathVariable("locationId") Long locationId);
 
     @DeleteMapping(value = "/{locationId}")
     ResponseEntity<Void> deleteLocation(@PathVariable("locationId") Long locationId);

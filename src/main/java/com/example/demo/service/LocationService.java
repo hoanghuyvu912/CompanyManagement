@@ -33,35 +33,35 @@ public class LocationService {
     }
 
     public List<LocationRestDTO> getLocationByLocationLike(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
         }
         return locationMapper.toRestDTOs(locationRepository.findByLocationLike("%" + s + "%"));
     }
 
     public List<LocationRestDTO> getLocationByLocationNotLike(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
         }
         return locationMapper.toRestDTOs(locationRepository.findByLocationNotLike("%" + s + "%"));
     }
 
     public List<LocationRestDTO> getLocationByLocationStartingWith(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
         }
         return locationMapper.toRestDTOs(locationRepository.findByLocationStartingWith(s));
     }
 
     public List<LocationRestDTO> getLocationByLocationEndingWith(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
         }
         return locationMapper.toRestDTOs(locationRepository.findByLocationEndingWith(s));
     }
 
     public List<LocationRestDTO> getLocationByLocationContaining(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search String is missing.");
         }
         return locationMapper.toRestDTOs(locationRepository.findByLocationContaining(s));
@@ -82,10 +82,9 @@ public class LocationService {
         locationRepository.deleteById(locationId);
     }
 
-    public Location updateLocation(LocationDTO locationDTO, Long locationId) {
-        Optional<Location> location = locationRepository.findById(locationId);
-        Location updatedLocation = location.get();
-        updatedLocation.setLocation(locationDTO.getLocation());
-        return locationRepository.save(updatedLocation);
+    public LocationRestDTO updateLocation(LocationDTO locationDTO, Long locationId) {
+        Location location = locationRepository.findById(locationId).orElseThrow(CompanyManagementException::LocationNotFound);
+        location.setLocation(locationDTO.getLocation());
+        return locationMapper.toRestDTO(locationRepository.save(location));
     }
 }

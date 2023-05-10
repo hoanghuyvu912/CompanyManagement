@@ -37,7 +37,7 @@ public class ProjectService {
 
     public List<ProjectRestDTO> getProjectByAreaIgnoreCase(String area, Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
-        if (area == null || area.isBlank()) {
+        if (area == null || area.trim().isBlank() || area.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
         }
         List<Project> list = projectRepository.findByAreaIgnoreCase(area);
@@ -54,7 +54,7 @@ public class ProjectService {
     }
 
     public List<ProjectRestDTO> getProjectByProjectNameNot(String s) {
-        if (s == null || s.isBlank()) {
+        if (s == null || s.trim().isBlank() || s.isEmpty()) {
             throw CompanyManagementException.badRequest("StringMissing", "Search string is missing.");
         }
         return projectMapper.toRestDTOs(projectRepository.findByProjectNameNot(s));

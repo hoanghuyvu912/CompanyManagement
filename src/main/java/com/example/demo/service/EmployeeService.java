@@ -34,10 +34,10 @@ public class EmployeeService {
     }
 
     public List<EmployeeRestDTO> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
-        if(lastName == null || lastName.isBlank()) {
+        if (lastName == null || lastName.trim().isBlank() || lastName.isEmpty()) {
             throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing.");
         }
-        if(firstName == null || firstName.isBlank()) {
+        if (firstName == null || firstName.trim().isBlank() || firstName.isEmpty()) {
             throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing.");
         }
         return employeeMapper.toRestDTOs(employeeRepository.findByLastNameAndFirstName(lastName, firstName));
@@ -54,21 +54,30 @@ public class EmployeeService {
 //    }
 
     public List<EmployeeRestDTO> getEmployeeByLastNameOrFirstName(String lastName, String firstName) {
-        if(lastName == null || lastName.isBlank() || firstName == null || firstName.isBlank()) {
+        if (lastName == null || lastName.trim().isBlank() || lastName.isEmpty() || firstName == null || firstName.trim().isBlank() || firstName.isEmpty()) {
             throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing.");
         }
         return employeeMapper.toRestDTOs(employeeRepository.findByLastNameOrFirstName(lastName, firstName));
     }
 
     public List<EmployeeRestDTO> getEmployeeByFirstName(String firstName) {
+        if (firstName == null || firstName.trim().isBlank() || firstName.isEmpty()) {
+            throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing.");
+        }
         return employeeMapper.toRestDTOs(employeeRepository.findByFirstName(firstName));
     }
 
     public List<EmployeeRestDTO> getEmployeeBySalaryLessThan(Integer salary) {
+        if (salary <= 0) {
+            throw CompanyManagementException.badRequest("InvalidSalaryInput", "Salary must be a positive number.");
+        }
         return employeeMapper.toRestDTOs(employeeRepository.findBySalaryLessThan(salary));
     }
 
     public List<EmployeeRestDTO> getEmployeeBySalaryGreaterThan(Integer salary) {
+        if (salary <= 0) {
+            throw CompanyManagementException.badRequest("InvalidSalaryInput", "Salary must be a positive number.");
+        }
         return employeeMapper.toRestDTOs(employeeRepository.findBySalaryGreaterThan(salary));
     }
 
@@ -107,6 +116,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeesByDepartmentId(Long deptId) {
+        Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
         return employeeRepository.getEmployeesByDepartmentId(deptId);
     }
 }
