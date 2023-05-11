@@ -1,0 +1,1751 @@
+{
+	"info": {
+		"_postman_id": "6b52ecdf-6c35-4674-9f94-311d24f27845",
+		"name": "CompanyManagement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27087694"
+	},
+	"item": [
+		{
+			"name": "CompanyAPI",
+			"item": [
+				{
+					"name": "Department",
+					"item": [
+						{
+							"name": "GetAllDepartment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/departments",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"departments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDepartmentByStartDate",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/reports?startDate=2014-05-03",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"reports"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2014-05-03"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDepartmentByStartDateAfter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/reports_after?startDate=2014-05-03",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"reports_after"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2014-05-03"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDepartmentByStartDateBefore",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/reports_before?startDate=2014-05-03",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"reports_before"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2014-05-03"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDepartmentByStartDateBetween",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/reports_between?beginDate=2014-05-03&endDate=2015-12-31",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"reports_between"
+									],
+									"query": [
+										{
+											"key": "beginDate",
+											"value": "2014-05-03"
+										},
+										{
+											"key": "endDate",
+											"value": "2015-12-31"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDepartmentByNameIgnoreCase",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/string_pattern?name=devOps Department",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"string_pattern"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "devOps Department"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDeptWithNumberOfEmployeesGreaterThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/getDeptWithNumberOfEmployeesGreaterThan?num=2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"getDeptWithNumberOfEmployeesGreaterThan"
+									],
+									"query": [
+										{
+											"key": "num",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDeptWithNumberOfProjectsLessThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/getDeptWithNumberOfProjectsLessThan?num=2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"getDeptWithNumberOfProjectsLessThan"
+									],
+									"query": [
+										{
+											"key": "num",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDeptWithNumberOfEmployees",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/getDeptWithNumberOfEmployees",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"getDeptWithNumberOfEmployees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDeptWithNumberOfProjectsGreaterThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/getDeptWithNumberOfProjectsGreaterThan?num=3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"getDeptWithNumberOfProjectsGreaterThan"
+									],
+									"query": [
+										{
+											"key": "num",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetDeptWithMaxNumOfEmployees",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/departments/getDeptWithMaxNumOfEmployees",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"departments",
+										"getDeptWithMaxNumOfEmployees"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Employee",
+					"item": [
+						{
+							"name": "GetAllEmployee",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeeByLastNameAndFirstName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/lastNameAndFirstName?lastName=Vu&firstName=Hoang",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"lastNameAndFirstName"
+									],
+									"query": [
+										{
+											"key": "lastName",
+											"value": "Vu"
+										},
+										{
+											"key": "firstName",
+											"value": "Hoang"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeeByLastNameOrFirstName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/lastNameOrFirstName?lastName=Vu&firstName=Vu",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"lastNameOrFirstName"
+									],
+									"query": [
+										{
+											"key": "lastName",
+											"value": "Vu"
+										},
+										{
+											"key": "firstName",
+											"value": "Vu"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeeByFirstName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/firstName?firstName=Vu",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"firstName"
+									],
+									"query": [
+										{
+											"key": "firstName",
+											"value": "Vu"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeeBySalaryLessThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/salaryLessThan?salary=12000000",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"salaryLessThan"
+									],
+									"query": [
+										{
+											"key": "salary",
+											"value": "12000000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeeBySalaryGreaterThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/salaryGreaterThan?salary=15000000",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"salaryGreaterThan"
+									],
+									"query": [
+										{
+											"key": "salary",
+											"value": "15000000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetEmployeesByDepartmentId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/departments/2/employees",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"departments",
+										"2",
+										"employees"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Location",
+					"item": [
+						{
+							"name": "GetAllLocation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetLocationByLocationLike",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations/location_like?location=Ho Chi",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations",
+										"location_like"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "Ho Chi"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetLocationByLocationNotLike",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations/location_not_like?location=Ho Chi Minh",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations",
+										"location_not_like"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "Ho Chi Minh"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetLocationByLocationStartingWith",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations/location_starting_with?location=Ho",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations",
+										"location_starting_with"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "Ho"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetLocationByLocationEndingWith",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations/location_ending_with?location=m",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations",
+										"location_ending_with"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "m"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetLocationByLocationContaining",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/locations/location_containing?location=o",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"locations",
+										"location_containing"
+									],
+									"query": [
+										{
+											"key": "location",
+											"value": "o"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project",
+					"item": [
+						{
+							"name": "GetAllProject",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/projects",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProjectByProjectNameNot",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/projects/name_not?name=AirBnB Project",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"projects",
+										"name_not"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "AirBnB Project"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProjectByAreaIsNull",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/projects/area_null",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"projects",
+										"area_null"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetProjectByAreaNotNull",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/projects/area_not_null",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"projects",
+										"area_not_null"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllProjectOrberByProjectName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/projects/projects_order_by_name",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"projects",
+										"projects_order_by_name"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Assignment",
+					"item": [
+						{
+							"name": "GetAllAssignment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAssignmentByNumberOfHourLessThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments/hour_less_than?hour=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments",
+										"hour_less_than"
+									],
+									"query": [
+										{
+											"key": "hour",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAssignmentByNumberOfHourLessThanEqual",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments/hour_less_than_equal?hour=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments",
+										"hour_less_than_equal"
+									],
+									"query": [
+										{
+											"key": "hour",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAssignmentByNumberOfHourGreaterThan",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments/hour_greater_than?hour=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments",
+										"hour_greater_than"
+									],
+									"query": [
+										{
+											"key": "hour",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAssignmentByNumberOfHourGreaterThanEqual",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments/hour_greater_than_equal?hour=5",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments",
+										"hour_greater_than_equal"
+									],
+									"query": [
+										{
+											"key": "hour",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAssignmentByNumberOfHourBetween",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/assignments/hour_between?hour1=5&hour2=6",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"assignments",
+										"hour_between"
+									],
+									"query": [
+										{
+											"key": "hour1",
+											"value": "5"
+										},
+										{
+											"key": "hour2",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relatives",
+					"item": [
+						{
+							"name": "GetAllRelatives",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllRelativesOrberByFullName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives_order_by_full_name",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives_order_by_full_name"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRelativesByFullNameStartingWith",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives/start_with?string=T",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives",
+										"start_with"
+									],
+									"query": [
+										{
+											"key": "string",
+											"value": "T"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRelativesByFullNameEndingWith",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives/ending_with?string=n",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives",
+										"ending_with"
+									],
+									"query": [
+										{
+											"key": "string",
+											"value": "n"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRelativesByPhoneNumberContaining",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives/phone_number_containing?string=8",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives",
+										"phone_number_containing"
+									],
+									"query": [
+										{
+											"key": "string",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRelativesByRelationshipEquals",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/relatives/relationship/?string=Bo",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"relatives",
+										"relationship",
+										""
+									],
+									"query": [
+										{
+											"key": "string",
+											"value": "Bo"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetRelativesByEmployeeId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/company/employees/1/relatives",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"company",
+										"employees",
+										"1",
+										"relatives"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DepartmentAPI",
+			"item": [
+				{
+					"name": "GetDepartmentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateDepartment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Server Department\",\r\n    \"startDate\" : \"2015-02-17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateDepartment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteDepartment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EmployeeAPI",
+			"item": [
+				{
+					"name": "GetEmployeeById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/employees/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"employees",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEmployee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\" : \"1998-07-21\",\r\n    \"firstName\" : \"Anh\",\r\n    \"gender\" : \"FEMALE\",\r\n    \"lastName\" : \"Nguyen\",\r\n    \"middleName\" : \"Truc Ngoc\",\r\n    \"salary\" : 11800000\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/5/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"5",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEmployee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"1997-04-19\",\r\n    \"firstName\": \"Thuy\",\r\n    \"gender\": \"FEMALE\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"middleName\": \"Thanh Ngoc\",\r\n    \"salary\": 11500000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/1/employees/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"employees",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEmployee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/employees/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"employees",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LocationAPI",
+			"item": [
+				{
+					"name": "GetLocationById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/locations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateLocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\" : \"Hoc Mon\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/5/locations",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"5",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLocation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"location\" : \"Ho Chi Minh 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/1/locations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteLocation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/projects/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"projects",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProjectAPI",
+			"item": [
+				{
+					"name": "GetProjectById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/projects/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"projects",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateProject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"area\" : \"Binh Thuan\",\r\n    \"projectName\" : \"Weather Prediction App Project\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/5/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"5",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"area\": \"Sai Gon\",\r\n    \"projectName\": \"Population Management Project\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/departments/1/projects/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"projects",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/departments/1/locations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"departments",
+								"1",
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AssignmentAPI",
+			"item": [
+				{
+					"name": "GetAssignmentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/projects/1/employees/1/assignments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"projects",
+								"1",
+								"employees",
+								"1",
+								"assignments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAssignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberOfHours\" : 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/projects/8/employees/16/assignments",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"projects",
+								"8",
+								"employees",
+								"16",
+								"assignments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAssignment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/projects/1/employees/1/assignments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"projects",
+								"1",
+								"employees",
+								"1",
+								"assignments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAssignment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/projects/1/employees/1/assignments/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"projects",
+								"1",
+								"employees",
+								"1",
+								"assignments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RelativesAPI",
+			"item": [
+				{
+					"name": "GetRelativesById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/employees/1/relatives/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"employees",
+								"1",
+								"relatives",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateRelatives",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\" : \"Le Thi Hai\",\r\n    \"gender\" : \"FEMALE\",\r\n    \"phoneNumber\": \"0902447766\",\r\n    \"relationship\" : \"Sister\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/employees/10/relatives",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"employees",
+								"10",
+								"relatives"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRelatives",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"fullName\": \"Tran Thanh Nga 1\",\r\n        \"gender\": \"FEMALE\",\r\n        \"phoneNumber\": \"012345679\",\r\n        \"relationship\": \"Mother\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/employees/1/relatives/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"employees",
+								"1",
+								"relatives",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRelatives",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/employees/1/relatives/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"employees",
+								"1",
+								"relatives",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
