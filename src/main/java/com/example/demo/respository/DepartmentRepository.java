@@ -2,7 +2,6 @@ package com.example.demo.respository;
 
 import com.example.demo.entity.Department;
 import com.example.demo.service.dto.DepartmentWithNumOfEmployeeDTO;
-import com.example.demo.service.dto.DepartmentWithNumOfEmployeeInterfaceDTO;
 import com.example.demo.service.dto.DepartmentWithNumOfProjectsDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

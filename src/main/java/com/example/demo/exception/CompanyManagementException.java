@@ -9,16 +9,16 @@ public class CompanyManagementException {
     private static final String EMPLOYEE_NOT_FOUND_MSG_KEY = "EmployeeNotExisted";
     private static final String EMPLOYEE_NOT_FOUND_MSG = "Employee Not Found";
 
-    private static final String LOCATION_NOT_FOUND_MSG_KEY = "Location NotExisted";
+    private static final String LOCATION_NOT_FOUND_MSG_KEY = "LocationNotExisted";
     private static final String LOCATION_NOT_FOUND_MSG = "Location Not Found";
 
-    private static final String PROJECT_NOT_FOUND_MSG_KEY = "Project NotExisted";
+    private static final String PROJECT_NOT_FOUND_MSG_KEY = "ProjectNotExisted";
     private static final String PROJECT_NOT_FOUND_MSG = "Project Not Found";
 
-    private static final String RELATIVES_NOT_FOUND_MSG_KEY = "Relatives NotExisted";
+    private static final String RELATIVES_NOT_FOUND_MSG_KEY = "RelativesNotExisted";
     private static final String RELATIVES_NOT_FOUND_MSG = "Relatives Not Found";
 
-    private static final String ASSIGNMENT_NOT_FOUND_MSG_KEY = "Assignment NotExisted";
+    private static final String ASSIGNMENT_NOT_FOUND_MSG_KEY = "AssignmentNotExisted";
     private static final String ASSIGNMENT_NOT_FOUND_MSG = "Assignment Not Found";
 
     public static ResponseException notFound(String msgKey, String msg) {
