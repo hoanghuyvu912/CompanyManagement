@@ -89,6 +89,9 @@ public class DepartmentService {
 
     public DepartmentRestDTO createDepartment(DepartmentDTO departmentDTO) {
         Department department = new Department();
+        if (departmentDTO.getStartDate().isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Start date cannot be after current date.");
+        }
         department.setName(departmentDTO.getName());
         department.setStartDate(departmentDTO.getStartDate());
         return departmentMapper.toRestDTO(departmentRepository.save(department));
@@ -96,6 +99,9 @@ public class DepartmentService {
 
     public DepartmentRestDTO updateDepartment(DepartmentDTO departmentDTO, Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        if (departmentDTO.getStartDate().isAfter(LocalDate.now())) {
+            throw CompanyManagementException.badRequest("InvalidDate", "Start date cannot be after current date.");
+        }
         department.setName(departmentDTO.getName());
         department.setStartDate(departmentDTO.getStartDate());
         return departmentMapper.toRestDTO(departmentRepository.save(department));
@@ -107,8 +113,8 @@ public class DepartmentService {
 
 
     public List<DepartmentWithNumOfProjectsDTO> getDeptWithNumberOfProjectsGreaterThan(Long num) {
-        if (num == null) {
-            throw CompanyManagementException.badRequest("NumMissing", "Number of projects is missing.");
+        if (num <= 0) {
+            throw CompanyManagementException.badRequest("InvalidNumberOfProjects", "Number of projects must be a positive project.");
         }
         return departmentRepository.getDeptWithNumberOfProjectsGreaterThan(num);
     }

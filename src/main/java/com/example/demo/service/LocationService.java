@@ -71,6 +71,11 @@ public class LocationService {
     public Location createLocation(LocationDTO locationDTO, Long depIt) {
         Optional<Department> department = departmentRepository.findById(depIt);
         Location location = new Location();
+
+        if (locationDTO.getLocation() == null || locationDTO.getLocation().trim().isBlank() || locationDTO.getLocation().isEmpty()) {
+            throw CompanyManagementException.badRequest("LocationNameMissing", "Location name is missing.");
+        }
+
         location.setLocation(locationDTO.getLocation());
         if (department.isPresent()) {
             location.setDepartment(department.get());
@@ -84,6 +89,9 @@ public class LocationService {
 
     public LocationRestDTO updateLocation(LocationDTO locationDTO, Long locationId) {
         Location location = locationRepository.findById(locationId).orElseThrow(CompanyManagementException::LocationNotFound);
+        if (locationDTO.getLocation() == null || locationDTO.getLocation().trim().isBlank() || locationDTO.getLocation().isEmpty()) {
+            throw CompanyManagementException.badRequest("LocationNameMissing", "Location name is missing.");
+        }
         location.setLocation(locationDTO.getLocation());
         return locationMapper.toRestDTO(locationRepository.save(location));
     }

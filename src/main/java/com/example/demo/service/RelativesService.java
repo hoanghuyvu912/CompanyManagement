@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.Gender;
 import com.example.demo.entity.Relatives;
 import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.respository.EmployeeRepository;
@@ -67,6 +68,19 @@ public class RelativesService {
     public RelativesRestDTO createRelatives(RelativesDTO relativesDTO, Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
         Relatives relatives = new Relatives();
+
+        if (relativesDTO.getFullName() == null || relativesDTO.getFullName().trim().isBlank() || relativesDTO.getFullName().isEmpty()) {
+            throw CompanyManagementException.badRequest("FullNameMissing", "Full name is missing.");
+        }
+
+        if (relativesDTO.getRelationship() == null || relativesDTO.getRelationship().trim().isBlank() || relativesDTO.getRelationship().isEmpty()) {
+            throw CompanyManagementException.badRequest("RelationshipMissing", "Relationship is missing.");
+        }
+
+        if (relativesDTO.getGender() != Gender.FEMALE && relativesDTO.getGender() != Gender.MALE && relativesDTO.getGender() != Gender.OTHER) {
+            throw CompanyManagementException.badRequest("InvalidGender", "Gender must be MALE, FEMALE or OTHERS");
+        }
+
         relatives.setFullName(relativesDTO.getFullName());
         relatives.setGender(relativesDTO.getGender());
         relatives.setPhoneNumber(relativesDTO.getPhoneNumber());
@@ -77,6 +91,19 @@ public class RelativesService {
 
     public RelativesRestDTO updateRelatives(RelativesDTO relativesDTO, Long relativesId) {
         Relatives relatives = relativesRepository.findById(relativesId).orElseThrow(CompanyManagementException::RelativesNotFound);
+
+        if (relativesDTO.getFullName() == null || relativesDTO.getFullName().trim().isBlank() || relativesDTO.getFullName().isEmpty()) {
+            throw CompanyManagementException.badRequest("FullNameMissing", "Full name is missing.");
+        }
+
+        if (relativesDTO.getRelationship() == null || relativesDTO.getRelationship().trim().isBlank() || relativesDTO.getRelationship().isEmpty()) {
+            throw CompanyManagementException.badRequest("RelationshipMissing", "Relationship is missing.");
+        }
+
+        if (relativesDTO.getGender() != Gender.FEMALE && relativesDTO.getGender() != Gender.MALE && relativesDTO.getGender() != Gender.OTHER) {
+            throw CompanyManagementException.badRequest("InvalidGender", "Gender must be MALE, FEMALE or OTHERS");
+        }
+
         relatives.setGender(relativesDTO.getGender());
         relatives.setRelationship(relativesDTO.getRelationship());
         relatives.setFullName(relativesDTO.getFullName());
