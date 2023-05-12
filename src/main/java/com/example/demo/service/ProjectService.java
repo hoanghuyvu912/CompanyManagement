@@ -47,6 +47,14 @@ public class ProjectService {
     public ProjectRestDTO createProject(ProjectDTO projectDTO, Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
         Project project = new Project();
+        String area = projectDTO.getArea();
+        String projectName = project.getProjectName();
+        if(area == null || area.trim().isBlank() || area.isEmpty()) {
+            throw CompanyManagementException.badRequest("AreaMissing", "Area is missing.");
+        }
+        if(projectName == null || projectName.trim().isBlank() || projectName.isEmpty()) {
+            throw CompanyManagementException.badRequest("ProjectNameMissing", "Project name is missing.");
+        }
         project.setArea(projectDTO.getArea());
         project.setProjectName(projectDTO.getProjectName());
         project.setDepartment(department);
@@ -70,6 +78,14 @@ public class ProjectService {
 
     public ProjectRestDTO updateProject(ProjectDTO projectDTO, Long projectId) {
         Project project = projectRepository.findById(projectId).orElseThrow(CompanyManagementException::ProjectNotFound);
+        String area = projectDTO.getArea();
+        String projectName = project.getProjectName();
+        if(area == null || area.trim().isBlank() || area.isEmpty()) {
+            throw CompanyManagementException.badRequest("AreaMissing", "Area is missing.");
+        }
+        if(projectName == null || projectName.trim().isBlank() || projectName.isEmpty()) {
+            throw CompanyManagementException.badRequest("ProjectNameMissing", "Project name is missing.");
+        }
         project.setArea(projectDTO.getArea());
         project.setProjectName(projectDTO.getProjectName());
         return projectMapper.toRestDTO(projectRepository.save(project));

@@ -76,6 +76,11 @@ public class AssignmentService {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(CompanyManagementException::EmployeeNotFound);
 
         Assignment assignment = new Assignment();
+
+        if (assignmentDTO.getNumberOfHour() <= 0) {
+            throw CompanyManagementException.badRequest("InvalidNumberOfHours", "The number of hours must be a positive number.");
+        }
+
         assignment.setNumberOfHour(assignmentDTO.getNumberOfHour());
         assignment.setProject(project);
         assignment.setEmployee(employee);
@@ -84,6 +89,9 @@ public class AssignmentService {
 
     public AssignmentRestDTO updateAssignment(AssignmentDTO assignmentDTO, Long assignmentId) {
         Assignment assignment = assignmentRepository.findById(assignmentId).orElseThrow(CompanyManagementException::DepartmentNotFound);
+        if (assignmentDTO.getNumberOfHour() <= 0) {
+            throw CompanyManagementException.badRequest("InvalidNumberOfHours", "The number of hours must be a positive number.");
+        }
         assignment.setNumberOfHour(assignmentDTO.getNumberOfHour());
         return assignmentMapper.toRestDTO(assignmentRepository.save(assignment));
     }

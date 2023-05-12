@@ -85,8 +85,13 @@ public class EmployeeService {
     public EmployeeRestDTO createEmployee(EmployeeDTO employeeDTO, Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(CompanyManagementException::DepartmentNotFound);
 
-//        Optional<Department> department = departmentRepository.findById(deptId);
+        Period age = Period.between(employeeDTO.getDateOfBirth(), LocalDate.now());
+        int years = age.getYears();
         Employee employee = new Employee();
+
+        if (years < 18) {
+            throw CompanyManagementException.badRequest("IllegalAge", "Employee must be 18-year-old to work.");
+        }
 
         if (employeeDTO.getFirstName() == null || employeeDTO.getFirstName().trim().isBlank() || employeeDTO.getFirstName().isEmpty()) {
             throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing.");
@@ -117,6 +122,29 @@ public class EmployeeService {
     public EmployeeRestDTO updateEmployee(EmployeeDTO employeeDTO, Long employeeId) {
         Optional<Employee> employee = employeeRepository.findById(employeeId);
         Employee updatedEmployee = employee.get();
+
+        Period age = Period.between(employeeDTO.getDateOfBirth(), LocalDate.now());
+        int years = age.getYears();
+
+        if (years < 18) {
+            throw CompanyManagementException.badRequest("IllegalAge", "Employee must be 18-year-old to work.");
+        }
+
+        if (employeeDTO.getFirstName() == null || employeeDTO.getFirstName().trim().isBlank() || employeeDTO.getFirstName().isEmpty()) {
+            throw CompanyManagementException.badRequest("FirstNameMissing", "First name is missing.");
+        }
+
+        if (employeeDTO.getLastName() == null || employeeDTO.getLastName().trim().isBlank() || employeeDTO.getLastName().isEmpty()) {
+            throw CompanyManagementException.badRequest("LastNameMissing", "Last name is missing.");
+        }
+
+        if (employeeDTO.getGender() != Gender.FEMALE && employeeDTO.getGender() != Gender.MALE && employeeDTO.getGender() != Gender.OTHER) {
+            throw CompanyManagementException.badRequest("InvalidGender", "Gender must be MALE, FEMALE or OTHERS");
+        }
+
+        if (employeeDTO.getSalary() <= 0) {
+            throw CompanyManagementException.badRequest("InvalidSalaryInput", "Salary must be a positive number.");
+        }
         updatedEmployee.setDateOfBirth(employeeDTO.getDateOfBirth());
         updatedEmployee.setFirstName(employeeDTO.getFirstName());
         updatedEmployee.setLastName(employeeDTO.getLastName());
