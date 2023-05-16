@@ -27,7 +27,6 @@ class DepartmentServiceTest {
     void getAllDepartment() {
         List<DepartmentRestDTO> tempList = departmentService.getAllDepartment();
         assertTrue(tempList.size() > 0);
-
     }
 
     @Test

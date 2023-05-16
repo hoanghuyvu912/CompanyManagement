@@ -96,6 +96,10 @@ public class AssignmentService {
         return assignmentMapper.toRestDTO(assignmentRepository.save(assignment));
     }
 
+    public List<AssignmentRestDTO> getByEmployeeId(Long employeeId) {
+        return assignmentMapper.toRestDTOs(assignmentRepository.getByEmployeeId(employeeId));
+    }
+
     public void deleteAssignment(Long assignmentId) {
         assignmentRepository.deleteById(assignmentId);
     }

@@ -119,4 +119,8 @@ public interface CompanyAPI {
 
     @GetMapping(value = "/assignments/hour_between")
     ResponseEntity<List<AssignmentRestDTO>> getAssignmentByNumberOfHourBetween(@Param("hour") String hour1, @Param("hour") String hour2);
+
+
+    @GetMapping(value = "/assignments/by_employee_id")
+    ResponseEntity<List<AssignmentRestDTO>> getByEmployeeId(@RequestParam("employeeId") Long employeeId);
 }

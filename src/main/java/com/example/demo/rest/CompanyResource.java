@@ -316,4 +316,9 @@ public class CompanyResource implements CompanyAPI {
             throw CompanyManagementException.badRequest("InvalidHoursInput", "Invalid hours input!");
         }
     }
+
+    @Override
+    public ResponseEntity<List<AssignmentRestDTO>> getByEmployeeId(Long employeeId) {
+        return ResponseEntity.ok(assignmentService.getByEmployeeId(employeeId));
+    }
 }
