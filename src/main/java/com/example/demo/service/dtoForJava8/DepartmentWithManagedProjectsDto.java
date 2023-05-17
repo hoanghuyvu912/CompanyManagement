@@ -12,11 +12,13 @@ public class DepartmentWithManagedProjectsDto {
 
     public DepartmentWithManagedProjectsDto() {
         this(null, null);
+//        this.departmentRestDTO = null;
+//        this.projectRestDTOS = null;
     }
 
     public DepartmentWithManagedProjectsDto(DepartmentRestDTO departmentRestDTO, ArrayList<ProjectRestDTO> projectRestDTOS) {
         this. departmentRestDTO =  departmentRestDTO;
-        this.projectRestDTOS = projectRestDTOS;
+        this.projectRestDTOS = new ArrayList<>(projectRestDTOS);
     }
 
     public DepartmentRestDTO  departmentRestDTO() {
