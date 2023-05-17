@@ -155,7 +155,7 @@ public class Java8Test {
             int numberOfHour = tempAssignmentList.stream()
                     .filter(a -> a.getProject().getId() == tempProjectWithMatchedLocation.get(finalI).getId()).map(AssignmentRestDTO::getNumberOfHour)
                     .reduce(0, Integer::sum);
-            long count = tempAssignmentList.stream().filter(a -> tempProjectWithMatchedLocation.get(finalI).getId() == a.getProject().getId()).map(AssignmentRestDTO::getEmployee).count();
+            long count = tempAssignmentList.stream().filter(a -> tempProjectWithMatchedLocation.get(finalI).getId() == a.getProject().getId()).map(AssignmentRestDTO::getEmployee).distinct().count();
 
             tempProject.setNumberOfHours(numberOfHour);
             tempProject.setNumberOfEmployees((int) count);
@@ -200,7 +200,7 @@ public class Java8Test {
         List<ProjectRestDTO> tempProjectWithMatchedLocation = tempProjectList.stream()
                 .filter(p -> location.equalsIgnoreCase(p.getArea()))
                 .collect(Collectors.toList());
-        tempProjectWithMatchedLocation.forEach(System.out::println);
+//        tempProjectWithMatchedLocation.forEach(System.out::println);
 
         List<ProjectWithTotalEmpTotalHourDto> projectWithTotalEmpTotalHourDtoList = new ArrayList<>();
         for (int i = 0; i < tempProjectWithMatchedLocation.size(); i++) {
@@ -210,7 +210,8 @@ public class Java8Test {
                     .filter(a -> a.getProject().getId() == tempProjectWithMatchedLocation.get(finalI).getId())
                     .map(AssignmentRestDTO::getNumberOfHour)
                     .reduce(0, Integer::sum);
-            long count = tempAssignmentList.stream().filter(a -> tempProjectWithMatchedLocation.get(finalI).getId() == a.getProject().getId()).map(AssignmentRestDTO::getEmployee).count();
+
+            long count = tempAssignmentList.stream().filter(a -> tempProjectWithMatchedLocation.get(finalI).getId() == a.getProject().getId()).map(AssignmentRestDTO::getEmployee).distinct().count();
 
             tempProject.setNumberOfHours(numberOfHour);
             tempProject.setNumberOfEmployees((int) count);
@@ -223,8 +224,12 @@ public class Java8Test {
     void getProjectWithTotalHoursTotalSalaryInASpecificArea_11() {
         String location = "Sai Gon";
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
-        int totalHours = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour).reduce(0, Integer::sum);
-        double totalSalary = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary).reduce(0, Integer::sum);
+        int totalHours = tempAssignmentList.stream()
+                .filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour)
+                .reduce(0, Integer::sum);
+        double totalSalary = tempAssignmentList.stream()
+                .filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary)
+                .reduce(0, Integer::sum);
         ProjectWithTotalHoursTotalSalaryDto projectWithTotalHoursTotalSalaryDto = new ProjectWithTotalHoursTotalSalaryDto(totalHours, totalSalary);
         System.out.println(projectWithTotalHoursTotalSalaryDto);
     }
