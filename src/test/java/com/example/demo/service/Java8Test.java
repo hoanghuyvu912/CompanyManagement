@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.Gender;
 import com.example.demo.entity.Project;
 import com.example.demo.service.dto.*;
 import com.example.demo.service.dtoForJava8.*;
@@ -16,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +55,25 @@ public class Java8Test {
     private EmployeeMapper employeeMapper;
 
     @Test
+    void getDepartmentStatistic_1() {
+        List<DepartmentRestDTO> tempDeptList = departmentService.getAllDepartment();
+        List<EmployeeRestDTO> tempEmpList = employeeService.getAllEmployee();
+        List<DepartmentStatisticDto> departmentStatisticDtoList = new ArrayList<>();
+        for (int i = 0; i < tempDeptList.size(); i++) {
+            int finalI = i;
+            String deptName = tempDeptList.get(i).getName();
+            LocalDate startDate = tempDeptList.get(i).getStartDate();
+            int numberOfEmps = (int) tempEmpList.stream().filter(e -> e.getDepartment().getId() == tempDeptList.get(finalI).getId()).count();
+            int numberOfFemales = (int) tempEmpList.stream().filter(e -> e.getDepartment().getId() == tempDeptList.get(finalI).getId()).filter(e -> e.getGender() == Gender.FEMALE).count();
+            int numberOfMales = (int) tempEmpList.stream().filter(e -> e.getDepartment().getId() == tempDeptList.get(finalI).getId()).filter(e -> e.getGender() == Gender.MALE).count();
+            int numberOfU23 = (int) tempEmpList.stream().filter(e -> e.getDepartment().getId() == tempDeptList.get(finalI).getId()).filter(e -> Period.between(e.getDateOfBirth(), LocalDate.now()).getYears() < 23).count();
+            DepartmentStatisticDto departmentStatisticDto = new DepartmentStatisticDto(deptName, startDate, numberOfEmps, numberOfFemales, numberOfMales, numberOfU23);
+            departmentStatisticDtoList.add(departmentStatisticDto);
+        }
+        departmentStatisticDtoList.forEach(System.out::println);
+    }
+
+    @Test
     void getAllEmployeeThatHaveBirthMonthSameWithInputMonth_2() {
         int inputMonth = 4;
         List<EmployeeRestDTO> tempEList = employeeService.getAllEmployee().stream()
@@ -77,6 +99,19 @@ public class Java8Test {
             employeeWithRelativesDtos.add(tempEmp);
         }
         employeeWithRelativesDtos.forEach(System.out::println);
+    }
+
+    @Test
+    void getEmployeeWithEmergencyContact_4() {
+        List<EmployeeRestDTO> tempEmployeeList = employeeService.getAllEmployee();
+        List<RelativesRestDTO> tempRelativesList = relativesService.getAllRelatives();
+        EmployeeRestDTO getEmployeeWithEmergencyContact = tempRelativesList.stream()
+                .filter(r -> r.getRelationship().equalsIgnoreCase("Father") ||
+                        r.getRelationship().equalsIgnoreCase("Mother") ||
+                        r.getRelationship() != null
+                ).map(r -> employeeMapper.toRestDTO(r.getEmployee()))
+                .findFirst().get();
+        System.out.println(getEmployeeWithEmergencyContact);
     }
 
     @Test
@@ -110,9 +145,6 @@ public class Java8Test {
 
         List<ProjectWithTotalEmpTotalHourDto> projectWithTotalEmpTotalHourDtoList = new ArrayList<>();
 
-//        List<ProjectWithTotalEmpTotalHourDto> projectWithTotalEmpTotalHourDtoList = tempAssignmentList.stream()
-//                    .filter(a -> a.getId() == tempProjectWithMatchedLocation.get(finalI).getId())
-
         for (int i = 0; i < tempProjectWithMatchedLocation.size(); i++) {
             ProjectWithTotalEmpTotalHourDto tempProject = new ProjectWithTotalEmpTotalHourDto();
             int finalI = i;
@@ -131,7 +163,6 @@ public class Java8Test {
     @Test
     void getProjectWithTotalHoursTotalSalary_7() {
         String location = "Sai Gon";
-//        List<ProjectRestDTO> tempProjectList = projectService.getAllProject();
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
         int totalHours = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour).reduce(0, Integer::sum);
         double totalSalary = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary).reduce(0, Integer::sum);
@@ -173,7 +204,8 @@ public class Java8Test {
             ProjectWithTotalEmpTotalHourDto tempProject = new ProjectWithTotalEmpTotalHourDto();
             int finalI = i;
             int numberOfHour = tempAssignmentList.stream()
-                    .filter(a -> a.getProject().getId() == tempProjectWithMatchedLocation.get(finalI).getId()).map(AssignmentRestDTO::getNumberOfHour)
+                    .filter(a -> a.getProject().getId() == tempProjectWithMatchedLocation.get(finalI).getId())
+                    .map(AssignmentRestDTO::getNumberOfHour)
                     .reduce(0, Integer::sum);
             long count = tempAssignmentList.stream().filter(a -> tempProjectWithMatchedLocation.get(finalI).getId() == a.getProject().getId()).map(AssignmentRestDTO::getEmployee).count();
 
@@ -190,17 +222,24 @@ public class Java8Test {
         List<EmployeeRestDTO> tempEmployeeList = employeeService.getAllEmployee();
 
         List<EmployeeRestDTO> unAssignedEmployeesList = tempEmployeeList.stream()
-                .filter(e -> !(tempAssignmentList.stream().map(AssignmentRestDTO::getEmployee).map(Employee::getId).collect(Collectors.toList())).contains(e.getId()))
+                .filter(e -> !(tempAssignmentList.stream()
+                        .map(AssignmentRestDTO::getEmployee)
+                        .map(Employee::getId).collect(Collectors.toList()))
+                        .contains(e.getId()))
                 .collect(Collectors.toList());
         unAssignedEmployeesList.forEach(System.out::println);
     }
 
     @Test
-    void getEmployeeWorkOnProjectManagedByAnotherDept() {
+    void getEmployeeWorkOnProjectManagedByAnotherDept_13() {
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
         List<EmployeeRestDTO> tempEmployeeList = employeeService.getAllEmployee();
         List<EmployeeRestDTO> employeeWorkOnProjectManagedByAnotherDept = tempEmployeeList.stream()
-                .filter(e -> !(tempAssignmentList.stream().map(AssignmentRestDTO::getProject).map(Project::getDepartment).map(Department::getId).collect(Collectors.toList())).contains(e.getDepartment().getId()))
+                .filter(e -> !tempAssignmentList.stream()
+                        .filter(a -> a.getEmployee().getId() == e.getId())
+                        .map(a -> a.getProject().getDepartment().getId())
+                        .collect(Collectors.toList())
+                        .contains(e.getDepartment().getId()))
                 .collect(Collectors.toList());
         employeeWorkOnProjectManagedByAnotherDept.forEach(System.out::println);
     }
