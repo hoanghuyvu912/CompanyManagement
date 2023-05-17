@@ -106,11 +106,15 @@ public class Java8Test {
         List<EmployeeRestDTO> tempEmployeeList = employeeService.getAllEmployee();
         List<RelativesRestDTO> tempRelativesList = relativesService.getAllRelatives();
         EmployeeRestDTO getEmployeeWithEmergencyContact = tempRelativesList.stream()
-                .filter(r -> r.getRelationship().equalsIgnoreCase("Father") ||
-                        r.getRelationship().equalsIgnoreCase("Mother") ||
-                        r.getRelationship() != null
-                ).map(r -> employeeMapper.toRestDTO(r.getEmployee()))
-                .findFirst().get();
+                .filter(r -> {
+                    if ("Father".equalsIgnoreCase(r.getRelationship())) {
+                        return true;
+                    } else if ("Mother".equalsIgnoreCase(r.getRelationship())) {
+                        return true;
+                    } else return r.getRelationship() != null;
+                }).findFirst()
+                .map(r -> employeeMapper.toRestDTO(r.getEmployee()))
+                .get();
         System.out.println(getEmployeeWithEmergencyContact);
     }
 
@@ -135,11 +139,11 @@ public class Java8Test {
 
     @Test
     void getProjectWithEmpNumHourNum_6() {
-        String location = "Sai Gon";
+//        String location = "Sai Gon";
         List<ProjectRestDTO> tempProjectList = projectService.getAllProject();
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
         List<ProjectRestDTO> tempProjectWithMatchedLocation = tempProjectList.stream()
-                .filter(p -> location.equalsIgnoreCase(p.getArea()))
+                .filter(p -> "Sai Gon".equalsIgnoreCase(p.getArea()))
                 .collect(Collectors.toList());
         tempProjectWithMatchedLocation.forEach(System.out::println);
 
@@ -162,10 +166,10 @@ public class Java8Test {
 
     @Test
     void getProjectWithTotalHoursTotalSalary_7() {
-        String location = "Sai Gon";
+//        String location = "Sai Gon";
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
-        int totalHours = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour).reduce(0, Integer::sum);
-        double totalSalary = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary).reduce(0, Integer::sum);
+        int totalHours = tempAssignmentList.stream().filter(p -> "Sai Gon".equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour).reduce(0, Integer::sum);
+        double totalSalary = tempAssignmentList.stream().filter(p -> "Sai Gon".equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary).reduce(0, Integer::sum);
         ProjectWithTotalHoursTotalSalaryDto projectWithTotalHoursTotalSalaryDto = new ProjectWithTotalHoursTotalSalaryDto(totalHours, totalSalary);
         System.out.println(projectWithTotalHoursTotalSalaryDto);
     }
@@ -190,8 +194,7 @@ public class Java8Test {
 
     @Test
     void getProjectWithEmpNumHourNumInASpecificArea_10() {
-        //giống câu 6
-        String location = "Trang Bom";
+        String location = "Sai Gon";
         List<ProjectRestDTO> tempProjectList = projectService.getAllProject();
         List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
         List<ProjectRestDTO> tempProjectWithMatchedLocation = tempProjectList.stream()
@@ -214,6 +217,16 @@ public class Java8Test {
             projectWithTotalEmpTotalHourDtoList.add(tempProject);
         }
         projectWithTotalEmpTotalHourDtoList.forEach(System.out::println);
+    }
+
+    @Test
+    void getProjectWithTotalHoursTotalSalaryInASpecificArea_11() {
+        String location = "Sai Gon";
+        List<AssignmentRestDTO> tempAssignmentList = assignmentService.getAllAssignment();
+        int totalHours = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getNumberOfHour).reduce(0, Integer::sum);
+        double totalSalary = tempAssignmentList.stream().filter(p -> location.equalsIgnoreCase(p.getProject().getArea())).map(AssignmentRestDTO::getEmployee).map(Employee::getSalary).reduce(0, Integer::sum);
+        ProjectWithTotalHoursTotalSalaryDto projectWithTotalHoursTotalSalaryDto = new ProjectWithTotalHoursTotalSalaryDto(totalHours, totalSalary);
+        System.out.println(projectWithTotalHoursTotalSalaryDto);
     }
 
     @Test
