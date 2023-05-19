@@ -1,13 +1,18 @@
 package com.example.demo.rest;
 
 import com.example.demo.entity.Department;
+import com.example.demo.exception.CompanyManagementException;
+import com.example.demo.exception.ResponseException;
 import com.example.demo.service.DepartmentService;
 import com.example.demo.service.dto.DepartmentDTO;
 import com.example.demo.service.dto.DepartmentRestDTO;
 import com.example.demo.service.dto.DepartmentWithNumOfEmployeeDTO;
 import com.example.demo.service.dto.DepartmentWithNumOfProjectsDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.Option;
@@ -15,7 +20,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class DepartmentResource implements DepartmentAPI {
@@ -29,7 +34,11 @@ public class DepartmentResource implements DepartmentAPI {
 
     @Override
     public ResponseEntity<List<DepartmentRestDTO>> getDepartmentByStartDate(LocalDate startDate) {
-        return ResponseEntity.ok(departmentService.getDepartmentByDate(startDate));
+        try {
+            return ResponseEntity.ok(departmentService.getDepartmentByDate(startDate));
+        } catch (ResponseException e) {
+            throw CompanyManagementException.badRequest("LocalDateMissing", "Date missing.");
+        }
     }
 
     @Override
@@ -52,6 +61,7 @@ public class DepartmentResource implements DepartmentAPI {
         return ResponseEntity.ok(departmentService.getDepartmentByNameIgnoreCase(name));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<DepartmentRestDTO> createDepartment(DepartmentDTO departmentDTO) {
         return ResponseEntity.ok(departmentService.createDepartment(departmentDTO));

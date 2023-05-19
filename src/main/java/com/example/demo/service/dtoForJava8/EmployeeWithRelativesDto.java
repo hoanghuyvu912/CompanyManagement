@@ -9,15 +9,15 @@ import java.util.List;
 
 public class EmployeeWithRelativesDto {
     private EmployeeRestDTO employee;
-    private List<RelativesRestDTO> relativesRestDTOS;
+    private List<RelativeJava8Dto> relativeJava8Dtos;
 
     public EmployeeWithRelativesDto() {
         this(null, null);
     }
 
-    public EmployeeWithRelativesDto(EmployeeRestDTO employee, List<RelativesRestDTO> relativesRestDTOS) {
+    public EmployeeWithRelativesDto(EmployeeRestDTO employee, List<RelativeJava8Dto> relativeJava8Dtos) {
         this.employee = employee;
-        this.relativesRestDTOS = relativesRestDTOS;
+        this.relativeJava8Dtos = relativeJava8Dtos;
     }
 
     public EmployeeRestDTO getEmployee() {
@@ -28,18 +28,18 @@ public class EmployeeWithRelativesDto {
         this.employee = employee;
     }
 
-    public List<RelativesRestDTO> getRelativesRestDTOS() {
-        return relativesRestDTOS;
+    public List<RelativeJava8Dto> getRelativeJava8Dtos() {
+        return relativeJava8Dtos;
     }
 
-    public void setRelativesRestDTOS(List<RelativesRestDTO> relativesRestDTOS) {
-        this.relativesRestDTOS = new ArrayList<>(relativesRestDTOS);
+    public void setRelativesRestDTOS(List<RelativeJava8Dto> relativeJava8Dtos) {
+        this.relativeJava8Dtos  = new ArrayList<>(relativeJava8Dtos);
     }
 
     @Override
     public String toString() {
         return "EmployeeWithRelativesDto: " +
                 "\nEmployee: " + employee +
-                "\nRelatives: " + relativesRestDTOS + "\n";
+                "\nRelatives: " + relativeJava8Dtos + "\n";
     }
 }

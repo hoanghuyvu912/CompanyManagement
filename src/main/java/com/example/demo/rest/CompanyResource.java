@@ -5,15 +5,21 @@ import com.example.demo.exception.CompanyManagementException;
 import com.example.demo.service.*;
 import com.example.demo.service.dto.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.description.field.FieldDescription;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class CompanyResource implements CompanyAPI {
+
     private final EmployeeService employeeService;
     private final DepartmentService departmentService;
     private final LocationService locationService;
@@ -24,12 +30,14 @@ public class CompanyResource implements CompanyAPI {
     //Employee
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getAllEmployee() {
+        log.info("Get all employees");
         return ResponseEntity.ok(employeeService.getAllEmployee());
     }
 
     @Override
     public ResponseEntity<List<EmployeeRestDTO>> getEmployeeByLastNameAndFirstName(String lastName, String firstName) {
         if (lastName == null || lastName.isBlank() || firstName == null || lastName.isBlank()) {
+            log.error("Missing either last name or first name.");
             throw CompanyManagementException.badRequest("FieldMissing", "Required field is missing");
         }
         return ResponseEntity.ok(employeeService.getEmployeeByLastNameAndFirstName(lastName, firstName));
