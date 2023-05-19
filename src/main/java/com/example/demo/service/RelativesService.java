@@ -8,6 +8,7 @@ import com.example.demo.respository.EmployeeRepository;
 import com.example.demo.respository.RelativesRepository;
 import com.example.demo.service.dto.RelativesDTO;
 import com.example.demo.service.dto.RelativesRestDTO;
+import com.example.demo.service.dtoForJava8.RelativeJava8Dto;
 import com.example.demo.service.mapper.RelativesMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class RelativesService {
 
     public List<RelativesRestDTO> getAllRelatives() {
         return relativesMapper.toRestDTOs(relativesRepository.findAll());
+    }
+
+    public List<RelativeJava8Dto> getAllRelativesJava8() {
+        return relativesMapper.toJava8DTOs(getAllRelatives());
     }
 
     public RelativesRestDTO getRelativesByID(Long relativesId, Long employeeId) {

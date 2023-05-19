@@ -40,21 +40,21 @@ public class Java8Service {
         tempEList.forEach(System.out::println);
     }
 
-    void getEmployeeWithAllRelatives() {
-        List<EmployeeRestDTO> templEmployeeList = employeeService.getAllEmployee();
-        List<RelativesRestDTO> tempRelativesList = relativesService.getAllRelatives();
-        List<EmployeeWithRelativesDto> employeeWithRelativesDtos = new ArrayList<>();
-
-        for (int i = 0; i < templEmployeeList.size(); i++) {
-            int finalI = i;
-            EmployeeWithRelativesDto tempEmp = new EmployeeWithRelativesDto();
-            tempEmp.setEmployee(templEmployeeList.get(i));
-            List<RelativesRestDTO> tempRelativesOfEmp = tempRelativesList.stream().filter(r -> r.getEmployee().getId() == templEmployeeList.get(finalI).getId()).collect(Collectors.toList());
-            tempEmp.setRelativesRestDTOS(tempRelativesOfEmp);
-            employeeWithRelativesDtos.add(tempEmp);
-        }
-        employeeWithRelativesDtos.forEach(System.out::println);
-    }
+//    void getEmployeeWithAllRelatives() {
+//        List<EmployeeRestDTO> templEmployeeList = employeeService.getAllEmployee();
+//        List<RelativesRestDTO> tempRelativesList = relativesService.getAllRelatives();
+//        List<EmployeeWithRelativesDto> employeeWithRelativesDtos = new ArrayList<>();
+//
+//        for (int i = 0; i < templEmployeeList.size(); i++) {
+//            int finalI = i;
+//            EmployeeWithRelativesDto tempEmp = new EmployeeWithRelativesDto();
+//            tempEmp.setEmployee(templEmployeeList.get(i));
+//            List<RelativesRestDTO> tempRelativesOfEmp = tempRelativesList.stream().filter(r -> r.getEmployee().getId() == templEmployeeList.get(finalI).getId()).collect(Collectors.toList());
+//            tempEmp.setRelativesRestDTOS(tempRelativesOfEmp);
+//            employeeWithRelativesDtos.add(tempEmp);
+//        }
+//        employeeWithRelativesDtos.forEach(System.out::println);
+//    }
 
     void getDepartmentWithManagedProject() {
         List<DepartmentRestDTO> tempDepartmentList = departmentService.getAllDepartment();

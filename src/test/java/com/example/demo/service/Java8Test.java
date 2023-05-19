@@ -1,15 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
 import com.example.demo.entity.Gender;
-import com.example.demo.entity.Project;
 import com.example.demo.service.dto.*;
 import com.example.demo.service.dtoForJava8.*;
 import com.example.demo.service.mapper.DepartmentMapper;
 import com.example.demo.service.mapper.EmployeeMapper;
+import com.example.demo.service.mapper.RelativesMapper;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,9 @@ public class Java8Test {
 
     @Autowired
     private RelativesService relativesService;
+
+    @Autowired
+    private RelativesMapper relativesMapper;
 
     @Autowired
     private ProjectService projectService;
@@ -86,14 +87,16 @@ public class Java8Test {
     void getEmployeeWithAllRelatives_3() {
         List<EmployeeRestDTO> tempEmployeeList = employeeService.getAllEmployee();
         List<RelativesRestDTO> tempRelativesList = relativesService.getAllRelatives();
+        List<RelativeJava8Dto> java8RelativesList = relativesService.getAllRelativesJava8();
         List<EmployeeWithRelativesDto> employeeWithRelativesDtos = new ArrayList<>();
 
         for (int i = 0; i < tempEmployeeList.size(); i++) {
             int finalI = i;
             EmployeeWithRelativesDto tempEmp = new EmployeeWithRelativesDto();
             tempEmp.setEmployee(tempEmployeeList.get(i));
-            List<RelativesRestDTO> tempRelativesOfEmp = tempRelativesList.stream()
+            List<RelativeJava8Dto> tempRelativesOfEmp = tempRelativesList.stream()
                     .filter(r -> r.getEmployee().getId() == tempEmployeeList.get(finalI).getId())
+                    .map(r -> relativesMapper.toJava8DTO(r))
                     .collect(Collectors.toList());
             tempEmp.setRelativesRestDTOS(tempRelativesOfEmp);
             employeeWithRelativesDtos.add(tempEmp);
